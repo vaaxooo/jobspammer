@@ -1,0 +1,60 @@
+<div class="docs-content d-flex flex-column flex-column-fluid" id="kt_docs_content">
+    <div class="container" id="kt_docs_content_container">
+        <form method="post" action="/proxy/add" id="edit-proxy">
+            <div class="card mb-2 mt-5">
+                <div class="card-body fs-6 py-15 px-10 py-lg-15 px-lg-15">
+
+                    <input type="hidden" name="proxy_id"
+                           id="proxy_id" value="{{ proxy.proxy_id }}" required/>
+
+                    <div class="mb-5">
+                        <label for="exampleFormControlInput1" class="required form-label">Protocol proxy</label>
+                        <input type="text" class="form-control form-control-solid" name="protocol_proxy"
+                               id="protocol_proxy"
+                               placeholder="Protocol" value="{{ proxy.protocol_proxy }}" required/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-5">
+                                <label for="exampleFormControlInput1" class="required form-label">Host proxy</label>
+                                <input type="text" class="form-control form-control-solid" name="host_proxy"
+                                       id="host_proxy"
+                                       placeholder="Host" value="{{ proxy.host_proxy }}" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-5">
+                                <label for="exampleFormControlInput1" class="required form-label">Port proxy</label>
+                                <input type="number" min="0" max="7" class="form-control form-control-solid" name="port_proxy"
+                                       id="port_proxy"
+                                       placeholder="Port" value="{{ proxy.port_proxy }}" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-5">
+                                <label for="exampleFormControlInput1" class="required form-label">Username proxy</label>
+                                <input type="text" class="form-control form-control-solid" name="username_proxy"
+                                       id="username_proxy"
+                                       placeholder="Username" value="{{ proxy.username_proxy }}" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-5">
+                                <label for="exampleFormControlInput1" class="required form-label">Password proxy</label>
+                                <input type="text" class="form-control form-control-solid" name="password_proxy"
+                                       id="password_proxy"
+                                       placeholder="Password" value="{{ proxy.password_proxy }}" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3 text-right">
+                        <button type="submit" class="btn btn-primary" id="btn-edit-proxy">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

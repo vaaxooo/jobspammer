@@ -10,28 +10,53 @@
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-200px">Portal</th>
                             <th class="min-w-400px">Traget link</th>
+                            <th class="min-w-200px">Status</th>
+                            <th class="min-w-200px">Status Order</th>
                             <th class="min-w-100px">Username</th>
                             <th class="min-w-200px">Lastname</th>
-                            <th class="min-w-200px">Login</th>
                             <th class="min-w-200px">Password</th>
                             <th class="min-w-200px">E-mail</th>
-                            <th class="min-w-200px">Proxy</th>
                         </tr>
                         </thead>
                         <tbody>
                         {{#each tasks }}
                             <tr id="task-list">
-                                <td>{{ portal }}</td>
+                                <td>{{ alias }}</td>
                                 <td>{{ target_link }}</td>
-                                <td>{{ username }}</td>
-                                <td>{{ lastname }}</td>
-                                <td>{{ login }}</td>
+                                {{#if status }}
+                                    <td>
+                                        <span class="badge badge-light-success fs-7 fw-boldest me-2">Active</span>
+                                    </td>
+                                {{else}}
+                                    <td>
+                                        <span class="badge badge-light-danger fs-7 fw-boldest me-2">Not active</span>
+                                    </td>
+                                {{/if}}
+                                {{#if status_order }}
+                                    <td>
+                                        <span class="badge badge-light-success fs-7 fw-boldest me-2">Done</span>
+                                    </td>
+                                {{else}}
+                                    {{#if status}}
+                                        <td>
+                                            <span class="badge badge-light-danger fs-7 fw-boldest me-2">Not executed</span>
+                                        </td>
+                                    {{else}}
+                                        <td>
+                                            <span class="badge badge-light-success fs-7 fw-boldest me-2">Created</span>
+                                        </td>
+                                    {{/if}}
+                                {{/if}}
+                                <td>{{ user_name }}</td>
+                                <td>{{ last_name }}</td>
                                 <td>{{ password }}</td>
                                 <td>{{ email }}</td>
-                                {{#if portal }}
-                                    <td>True</td>
+                                {{#if status }}
+                                    <td></td>
                                 {{else}}
-                                    <td>False</td>
+                                    <td>
+                                         <button type="button" class="btn btn-sm btn-active-primary" onclick="$.restartTask({{ id }})">Restart</button>
+                                    </td>
                                 {{/if}}
                             </tr>
                         {{/each}}
@@ -45,11 +70,3 @@
     </div>
     <!--end::Container-->
 </div>
-
-<script>
-
-    document.addEventListener("DOMContentLoaded", () => {
-        console.log(JSON.parse({{{ tasks }}}));
-    });
-
-</script>

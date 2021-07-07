@@ -1,106 +1,78 @@
 <div class="docs-content d-flex flex-column flex-column-fluid" id="kt_docs_content">
-    <!--begin::Container-->
     <div class="container" id="kt_docs_content_container">
-        <!--begin::Card-->
         <div class="card mb-2">
             <div class="card-body fs-6 py-15 px-10 py-lg-15 px-lg-15">
-
-                <!--begin::Form-->
-                <form class="form" action="#" method="post" enctype="multipart/form-data">
+                <form class="form" action="/create_task" method="post" id="create-task" enctype="multipart/form-data">
 
                     <div class="mb-5">
-                        <label for="exampleFormControlInput1" class="required form-label">Select a portal for mailing</label>
-                        <select class="form-control form-control-solid" name="portal" id="portal" placeholder="Portal" required>
+                        <label for="exampleFormControlInput1" class="required form-label">Select a portal for
+                            mailing</label>
+                        <select class="form-control form-control-solid" name="portal" id="portal" placeholder="Portal"
+                                required>
                             <option value="" selected>Choose portal</option>
-                            <option value="test1">test 1</option>
-                            <option value="test2">test 2</option>
+                            {{#each portals }}
+                                <option value="{{ id }}">{{ alias }}</option>
+                            {{/each}}
                         </select>
                     </div>
 
                     <div class="mb-5">
                         <label for="exampleFormControlInput1" class="required form-label">Landing page link</label>
-                        <input type="text" class="form-control form-control-solid" name="link" id="link" placeholder="Link" required/>
+                        <input type="text" class="form-control form-control-solid" name="target_link" id="target_link"
+                               placeholder="Link" required/>
                     </div>
 
                     <div class="row mb-5">
                         <div class="col-md-6 ">
                             <label for="exampleFormControlInput1" class="form-label">Input Username</label>
-                            <input type="email" class="form-control form-control-solid" name="username" id="username" placeholder="Username"/>
+                            <input type="email" class="form-control form-control-solid" name="username" id="username"
+                                   placeholder="Username"/>
                         </div>
 
                         <div class="col-md-6 ">
                             <label for="exampleFormControlInput1" class="form-label">Input Lastname</label>
-                            <input type="email" class="form-control form-control-solid" name="lastname" id="lastname" placeholder="Lastname"/>
+                            <input type="email" class="form-control form-control-solid" name="lastname" id="lastname"
+                                   placeholder="Lastname"/>
                         </div>
                     </div>
 
                     <div class="row mb-5">
                         <div class="col-md-6 ">
-                                <label for="exampleFormControlInput1" class="form-label">Input login</label>
-                                <input type="email" class="form-control form-control-solid" name="login" id="login" placeholder="Login"/>
+                            <label for="exampleFormControlInput1" class="form-label">Input E-mail</label>
+                            <input type="email" class="form-control form-control-solid" name="email" id="email"
+                                   placeholder="E-mail"/>
                         </div>
                         <div class="col-md-6 ">
                             <label for="exampleFormControlInput1" class="form-label">Input password</label>
-                            <input type="email" class="form-control form-control-solid" name="password" id="password" placeholder="Password"/>
+                            <input type="email" class="form-control form-control-solid" name="password" id="password"
+                                   placeholder="Password"/>
                         </div>
                     </div>
 
                     <div class="mb-5">
-                        <label for="exampleFormControlInput1" class="required form-label">Should the proxy server be updated while it is running?</label>
-                        <select class="form-control form-control-solid" name="proxy" id="proxy" placeholder="Proxy" required>
-                            <option value="" selected>Choose proxy</option>
-                            <option value="true">Enabled</option>
-                            <option value="false">Disabled</option>
+                        <label for="exampleFormControlInput1" class="required form-label">Should the proxy server be
+                            updated while it is running?</label>
+                        <select class="form-control form-control-solid" name="proxy" id="proxy" placeholder="Proxy"
+                                required>
+                            <option value="" selected disabled>Choose proxy</option>
+                            <option value="1">Enabled</option>
+                            <option value="0">Disabled</option>
                         </select>
                     </div>
 
-                    <!--begin::Input group-->
-                    <div class="fv-row">
-                        <!--begin::Dropzone-->
-                        <div class="dropzone" id="kt_dropzonejs">
-                            <!--begin::Message-->
-                            <div class="dz-message needsclick">
-                                <!--begin::Icon-->
-                                <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                                <!--end::Icon-->
 
-                                <!--begin::Info-->
-                                <div class="ms-4">
-                                    <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Drop file here or click to upload.</h3>
-                                    <span class="fs-7 fw-bold text-gray-400">Choose file</span>
-                                </div>
-                                <!--end::Info-->
-                            </div>
-                        </div>
-                        <!--end::Dropzone-->
+                    <div class="mb-5">
+                        <label for="exampleFormControlInput1" class="required form-label">Choose file</label>
+                        <input type="file" class="form-control form-control-solid" name="file" id="file"
+                               placeholder="Choose file" required />
                     </div>
-                    <!--end::Input group-->
 
                     <div class="form-group mt-3 text-right">
-                        <button type="submit" class="btn btn-primary">Upload</button>
+                        <button type="submit" class="btn btn-primary" id="btn-create-task">Upload</button>
                     </div>
 
                 </form>
-                <!--end::Form-->
-
             </div>
         </div>
-        <!--end::Card-->
     </div>
-    <!--end::Container-->
 </div>
-
-
-<script>
-    var myDropzone = new Dropzone("#kt_dropzonejs", {
-        url: "/mainsystem/bot/upload_file", // Set the url for your upload script location
-        method: "post",
-        paramName: "file", // The name that will be used to transfer the file
-        maxFiles: 1,
-        maxFilesize: 52, // MB
-        addRemoveLinks: true,
-        accept: function(file, done) {
-            done();
-        }
-    });
-</script>

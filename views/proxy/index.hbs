@@ -1,0 +1,53 @@
+<div class="docs-content d-flex flex-column flex-column-fluid" id="kt_docs_content">
+    <!--begin::Container-->
+    <div class="container" id="kt_docs_content_container">
+
+        <div class="d-flex align-items-center">
+            <a class="btn btn-primary fw-bolder" href="/proxy/add">Add proxy</a>
+        </div>
+
+        <div class="card mb-2 mt-5">
+            <div class="card-body fs-6 py-15 px-10 py-lg-15 px-lg-15">
+                <table class="table table-row-dashed table-row-gray-300 gy-7">
+                    <thead>
+                    <tr class="fw-bolder fs-6 text-gray-800">
+                        <!--<th>Proxy ID</th>-->
+                        <th>Protocol</th>
+                        <th>Host:Port</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Status</th>
+                        <th>Fail requests</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each proxy }}
+                        <tr>
+                            <!--<td>{{ proxy_id }}</td>-->
+                            <td>{{ protocol_proxy }}</td>
+                            <td>{{ host_proxy }}:{{ port_proxy }}</td>
+                            <td>{{ username_proxy }}</td>
+                            <td>{{ password_proxy }}</td>
+                            <td>
+                                {{#if is_active }}
+                                    <span class="badge badge-light-success fs-7 fw-boldest me-2"
+                                          onclick="$.changeProxyActive({{ proxy_id }}, 'in_active')">Active</span>
+                                {{else}}
+                                    <span class="badge badge-light-danger fs-7 fw-boldest me-2"
+                                          onclick="$.changeProxyActive({{ proxy_id }}, 'active')">In active</span>
+                                {{/if}}
+                            </td>
+                            <td>{{ fail_request_proxy }}</td>
+                            <td>
+                                <a href="/proxy/edit/{{ proxy_id }}" class="btn btn-sm btn-light">Settings</a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

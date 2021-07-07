@@ -1,0 +1,23 @@
+<div class="docs-content d-flex flex-column flex-column-fluid" id="kt_docs_content">
+    <div class="container" id="kt_docs_content_container">
+        <form method="post" action="/portal/edit" id="edit-portal">
+            <div class="card mb-2 mt-5">
+                <div class="card-body fs-6 py-15 px-10 py-lg-15 px-lg-15">
+                    <input type="hidden" name="portal_id"
+                           id="portal_id" value="{{ portal.id }}" required/>
+
+                    <div class="mb-5">
+                        <label for="exampleFormControlInput1" class="required form-label">Input alias</label>
+                        <input type="text" class="form-control form-control-solid" name="alias"
+                               id="alias"
+                               placeholder="Alias" value="{{ portal.alias }}" required/>
+                    </div>
+
+                    <div class="form-group mt-3 text-right">
+                        <button type="submit" class="btn btn-primary" id="btn-edit-portal">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
