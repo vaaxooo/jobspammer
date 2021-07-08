@@ -4,13 +4,9 @@ const fs = require("fs");
 const path = require('path');
 const multer = require('multer');
 const amqp = require('amqplib');
+
 const router = express.Router();
-
 let db = require('./db.js');
-
-/*let amqp = require('./rabbitmq.js');*/
-
-
 let storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, 'public/uploads/');
@@ -46,7 +42,7 @@ router.post('/settings/index', upload.none(), (req, res) => {
     db.query("UPDATE `settings` SET `is_active` = ? WHERE `id` = ?", [status, req.body.settings_id],
         (error, data) => {
             if (!error) {
-                res.send({
+                res.json({
                     success: true,
                 });
                 return;
@@ -63,7 +59,7 @@ router.post('/portal/index', upload.none(), (req, res) => {
     db.query("UPDATE `portal` SET `is_active` = ? WHERE `id` = ?", [status, req.body.portal_id],
         (error, data) => {
             if (!error) {
-                res.send({
+                res.json({
                     success: true,
                 });
                 return;
@@ -147,14 +143,14 @@ router.post('/portal/add', upload.none(), (req, res) => {
         "(?, ?)", [req.body.alias, req.body.is_active],
         function (error, data) {
             if (error) {
-                res.send({
+                res.json({
                     success: false,
                     message: "Oops. Data not saved!"
                 });
                 return;
             }
 
-            res.send({
+            res.json({
                 success: true,
                 message: "Data saved!"
             });
@@ -169,7 +165,7 @@ router.post('/tasks/restart', upload.none(), (req, res) => {
     db.query("SELECT `id` FROM `order` WHERE `id` = ? LIMIT ?", [req.body.task_id, 1],
         (error, data) => {
             if (error || data === undefined) {
-                res.send({
+                res.json({
                     status: false,
                     message: "Oops.. Something went wrong!"
                 })
@@ -177,7 +173,7 @@ router.post('/tasks/restart', upload.none(), (req, res) => {
             }
             db.query("UPDATE `order` SET `status_order` = ?, `status` = ? WHERE `id` = ?", [0, 1, req.body.task_id], function (error, data) {
                 if (error) {
-                    res.send({
+                    res.json({
                         status: false,
                         message: "Oops.. Something went wrong!"
                     })
@@ -239,7 +235,7 @@ router.post('/tasks/restart', upload.none(), (req, res) => {
  */
 router.post('/create_task', upload.single('file'), (req, res) => {
     if (!req.file) {
-        res.send({
+        res.json({
             status: false,
             message: 'Not uploaded file!'
         })
@@ -248,7 +244,7 @@ router.post('/create_task', upload.single('file'), (req, res) => {
 
     fs.stat("public/uploads/" + req.file.originalname, function (error, stats) {
         if (error) {
-            res.send({
+            res.json({
                 status: false,
                 message: 'File not uploaded!'
             });
@@ -260,7 +256,7 @@ router.post('/create_task', upload.single('file'), (req, res) => {
                 "VALUES (?, ?, ?, ?, ?, ?, ?)", [taskInfo.portal, taskInfo.user_name, taskInfo.last_name, taskInfo.email, taskInfo.password, taskInfo.target_link, file_mailing],
                 function (error, data) {
                     if (error) {
-                        res.send('Oops.. Data not saved!')
+                        res.json('Oops.. Data not saved!')
                     } else {
 
                         db.query("SELECT o.*, pr.*, p.alias FROM `order` as o JOIN `proxy` as pr ON o.id = ? JOIN `portal` as p ON p.id = o.portal LIMIT 1",
@@ -328,13 +324,13 @@ router.post('/proxy/index', upload.none(), (req, res) => {
     db.query("UPDATE `proxy` SET `is_active` = ? WHERE `proxy_id` = ?", [status, req.body.proxy_id],
         (error, data) => {
             if (error) {
-                res.send({
+                res.json({
                     success: false,
                 });
                 return;
             }
 
-            res.send({
+            res.json({
                 success: true,
             });
 
@@ -356,7 +352,7 @@ router.get('/proxy/add', upload.none(), (req, res) => {
 router.get('/settings/alias/:settings_id', upload.none(), (req, res) => {
     db.query("SELECT * FROM `settings` WHERE `id` = ? LIMIT ?", [req.params.settings_id, 1], function (error, data) {
         if (error || Object.keys(data).length === 0) {
-            res.send({
+            res.json({
                 status: false,
                 message: "Alias ID not found!"
             });
@@ -378,14 +374,14 @@ router.post('/settings/alias', upload.none(), (req, res) => {
         [req.body.alias, req.body.description, req.body.settings_id],
         function (error, data) {
             if (error || Object.keys(data).length === 0) {
-                res.send({
+                res.json({
                     status: false,
                     message: "Settings ID not found!"
                 });
                 return;
             }
 
-            res.send({
+            res.json({
                 status: true,
                 message: "Data refreshed!"
             })
@@ -399,7 +395,7 @@ router.post('/settings/alias', upload.none(), (req, res) => {
 router.get('/portal/edit/:portal_id', upload.none(), (req, res) => {
     db.query("SELECT * FROM `portal` WHERE `id` = ? LIMIT ?", [req.params.portal_id, 1], function (error, data) {
         if (error || Object.keys(data).length === 0) {
-            res.send({
+            res.json({
                 status: false,
                 message: "Portal ID not found!"
             });
@@ -421,14 +417,14 @@ router.post('/portal/edit', upload.none(), (req, res) => {
         [req.body.alias, req.body.portal_id],
         function (error, data) {
             if (error || Object.keys(data).length === 0) {
-                res.send({
+                res.json({
                     status: false,
                     message: "Portal ID not found!"
                 });
                 return;
             }
 
-            res.send({
+            res.json({
                 status: true,
                 message: "Data refreshed!"
             })
@@ -465,14 +461,14 @@ router.post('/proxy/edit/', upload.none(), (req, res) => {
         [req.body.protocol_proxy, req.body.host_proxy, req.body.port_proxy, req.body.username_proxy, req.body.password_proxy, req.body.proxy_id],
         function (error, data) {
             if (error || Object.keys(data).length === 0) {
-                res.send({
+                res.json({
                     status: false,
                     message: "Proxy ID not found!"
                 });
                 return;
             }
 
-            res.send({
+            res.json({
                 status: true,
                 message: "Data refreshed!"
             })
@@ -487,14 +483,14 @@ router.post('/proxy/add', upload.none(), (req, res) => {
         "(?, ?, ?, ?, ?)", [req.body.protocol_proxy, req.body.host_proxy, req.body.port_proxy, req.body.username_proxy, req.body.password_proxy],
         function (error, data) {
             if (error) {
-                res.send({
+                res.json({
                     success: false,
                     message: "Oops. Data not saved!"
                 });
                 return;
             }
 
-            res.send({
+            res.json({
                 success: true,
                 message: "Data saved!"
             });
@@ -509,14 +505,14 @@ router.post('/settings/add', upload.none(), (req, res) => {
         "(?, ?, ?)", [req.body.alias, req.body.is_active, req.body.description],
         function (error, data) {
             if (error) {
-                res.send({
+                res.json({
                     success: false,
                     message: "Oops. Data not saved!"
                 });
                 return;
             }
 
-            res.send({
+            res.json({
                 success: true,
                 message: "Data saved!"
             });
@@ -530,7 +526,7 @@ router.post('/settings/add', upload.none(), (req, res) => {
 router.get('/mainsystem/bot/get_file/', (req, res) => {
     let file_url = req.query.file_url;
     if (file_url === undefined) {
-        res.send({
+        res.json({
             status: false,
             message: "Params: [file_url] not found!"
         });
@@ -538,7 +534,7 @@ router.get('/mainsystem/bot/get_file/', (req, res) => {
     }
     fs.stat("./public/" + file_url, function (error, stats) {
         if (error || stats.isFile() === false) {
-            res.send({
+            res.json({
                 status: false,
                 message: 'Incorrect file path!'
             });
@@ -548,13 +544,15 @@ router.get('/mainsystem/bot/get_file/', (req, res) => {
     db.query("SELECT * FROM `order` WHERE `file_mailing` = ?", [file_url],
         function (error, data) {
             if (!data) {
-                res.send({
+                res.json({
                     status: false,
                     message: 'File not found!'
                 });
                 return;
             }
-            res.download("./public/" + file_url);
+
+            let filePath = "./public/" + file_url;
+            res.download(filePath);
         });
 });
 
@@ -563,10 +561,10 @@ router.get('/mainsystem/bot/get_file/', (req, res) => {
  */
 router.post('/mainsystem/api/order/:task_id/fail/', upload.none(), (req, res) => {
 
-    db.query("UPDATE `order` SET `status_order` = ?, `status` = ? `message` = ? WHERE `id` = ?", [2, 0, req.body.message, req.params.task_id]);
+    db.query("UPDATE `order` SET `status_order` = ?, `status` = ?, `message` = ? WHERE `id` = ?", [2, 0, req.body.message, req.params.task_id]);
     db.query("UPDATE `proxy` SET `fail_request_proxy` = `fail_request_proxy` + 1 WHERE `proxy_id` = ?", [req.body.proxy_id]);
 
-    res.send({
+    res.json({
         status: true,
         message: "Data refreshed!"
     })
@@ -582,7 +580,7 @@ router.post('/mainsystem/api/order/:task_id/success/', upload.none(), (req, res)
     /*    db.query("UPDATE `proxy` SET `success_request_proxy` = `success_request_proxy` + 1 WHERE `proxy_id` = ?",
             [req.body.proxy_id]);*/
 
-    res.send({
+    res.json({
         status: true,
         message: "Data refreshed!"
     })
@@ -597,7 +595,7 @@ router.get('/mainsystem/proxy/update/', upload.none(), (req, res) => {
         db.query("UPDATE `proxy` SET `fail_request_proxy` = `fail_request_proxy` + 1 WHERE `proxy_id` = ?",
             [req.query.proxy_id], function (error, data) {
                 if (error) {
-                    res.send({
+                    res.json({
                         status: false,
                         message: "An error occurred while updating the data!"
                     });
@@ -610,7 +608,7 @@ router.get('/mainsystem/proxy/update/', upload.none(), (req, res) => {
         " FROM `proxy` WHERE `is_active` = ? AND NOT `proxy_id` = ? ORDER BY RAND() LIMIT ?",
         [1, req.query.proxy_id, 1], function (error, data) {
             if (error) {
-                res.send({
+                res.json({
                     status: false,
                     message: "An error occurred while updating the data!"
                 });
@@ -618,7 +616,7 @@ router.get('/mainsystem/proxy/update/', upload.none(), (req, res) => {
             }
 
             let proxy = data[0];
-            res.send({
+            res.json({
                 status: true,
                 proxy: "http://" + proxy.username_proxy + ":" + proxy.password_proxy + "@" + proxy.host_proxy + ":" + proxy.port_proxy,
                 proxy_id: proxy.proxy_id
