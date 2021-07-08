@@ -139,8 +139,8 @@ router.get('/portal/add', (req, res) => {
  * ROUTE HANDLER PORTAL ADD
  */
 router.post('/portal/add', upload.none(), (req, res) => {
-    db.query("INSERT INTO `portal` (`alias`, `is_active`) VALUES " +
-        "(?, ?)", [req.body.alias, req.body.is_active],
+    db.query("INSERT INTO `portal` (`alias`, `name`, `is_active`) VALUES " +
+        "(?, ?, ?)", [req.body.alias, req.body.name, 1],
         function (error, data) {
             if (error) {
                 res.json({
@@ -182,7 +182,7 @@ router.post('/tasks/restart', upload.none(), (req, res) => {
 
                 db.query("SELECT o.*, pr.proxy_id, pr.protocol_proxy, pr.host_proxy, pr.port_proxy, pr.username_proxy, pr.password_proxy, pr.fail_request_proxy, p.alias, s.alias as 'settings_alias', s.is_active " +
                     "FROM `order` as o " +
-                    "JOIN `proxy` as pr ON o.id = 14 " +
+                    "JOIN `proxy` as pr ON o.id =  " + req.body.task_id +
                     "JOIN `settings` as s ON s.alias = 'is_update_proxy' " +
                     "JOIN `portal` as p ON p.id = o.portal LIMIT 1",
                     [req.body.task_id], function (error, data) {
@@ -413,8 +413,8 @@ router.get('/portal/edit/:portal_id', upload.none(), (req, res) => {
  * ROUTE HANDLER PORTAL EDIT
  */
 router.post('/portal/edit', upload.none(), (req, res) => {
-    db.query("UPDATE `portal` SET `alias` = ? WHERE `id` = ?",
-        [req.body.alias, req.body.portal_id],
+    db.query("UPDATE `portal` SET `name` = ? WHERE `id` = ?",
+        [req.body.name, req.body.portal_id],
         function (error, data) {
             if (error || Object.keys(data).length === 0) {
                 res.json({
@@ -566,7 +566,8 @@ router.post('/mainsystem/api/order/:task_id/fail/', upload.none(), (req, res) =>
 
     res.json({
         status: true,
-        message: "Data refreshed!"
+        message: "Data refreshed!",
+        body: req.body
     })
 });
 

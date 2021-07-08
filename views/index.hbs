@@ -10,12 +10,12 @@
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th class="min-w-200px">Portal</th>
                             <th class="min-w-400px">Traget link</th>
+                            <th class="min-w-200px">Is work</th>
                             <th class="min-w-200px">Status</th>
-                            <th class="min-w-200px">Status Order</th>
-                            <th class="min-w-100px">Username</th>
-                            <th class="min-w-200px">Lastname</th>
-                            <th class="min-w-200px">Password</th>
-                            <th class="min-w-200px">E-mail</th>
+                            <th class="min-w-100px">All links</th>
+                            <th class="min-w-200px">Send links</th>
+                            <th class="min-w-200px">Fail links</th>
+                            <th class="min-w-200px">Message</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -25,11 +25,11 @@
                                 <td>{{ target_link }}</td>
                                 {{#if status }}
                                     <td>
-                                        <span class="badge badge-light-success fs-7 fw-boldest me-2">Active</span>
+                                        <span class="badge badge-light-success fs-7 fw-boldest me-2">True</span>
                                     </td>
                                 {{else}}
                                     <td>
-                                        <span class="badge badge-light-danger fs-7 fw-boldest me-2">Not active</span>
+                                        <span class="badge badge-light-danger fs-7 fw-boldest me-2">False</span>
                                     </td>
                                 {{/if}}
                                 {{#if status_order }}
@@ -39,7 +39,7 @@
                                 {{else}}
                                     {{#if status}}
                                         <td>
-                                            <span class="badge badge-light-danger fs-7 fw-boldest me-2">Not executed</span>
+                                            <span class="badge badge-light-danger fs-7 fw-boldest me-2">Fail</span>
                                         </td>
                                     {{else}}
                                         <td>
@@ -47,10 +47,10 @@
                                         </td>
                                     {{/if}}
                                 {{/if}}
-                                <td>{{ user_name }}</td>
-                                <td>{{ last_name }}</td>
-                                <td>{{ password }}</td>
-                                <td>{{ email }}</td>
+                                <td>{{ all_links }}</td>
+                                <td>{{ send_links }}</td>
+                                <td>{{ fail_links }}</td>
+                                <td>{{ message }}</td>
                                 {{#if status }}
                                     <td></td>
                                 {{else}}
