@@ -191,7 +191,7 @@ router.post('/tasks/restart', upload.none(), (req, res) => {
                             .then(connection => {
                                 return connection.createChannel();
                             }).then(channel => {
-                            channel.assertQueue(queue);
+                            channel.assertQueue(queue, {durable: false});
                             channel.prefetch(1);
                             console.log(" [x] Awaiting RPC Requests");
 
@@ -266,7 +266,7 @@ router.post('/create_task', upload.single('file'), (req, res) => {
                                     .then(connection => {
                                         return connection.createChannel();
                                     }).then(channel => {
-                                    channel.assertQueue(queue);
+                                    channel.assertQueue(queue, {durable: false});
                                     channel.prefetch(1);
                                     console.log(" [x] Awaiting RPC Requests");
 
