@@ -26,7 +26,7 @@ export class PortalsController {
     interfaceEdit(req, res) {
         db.query("SELECT * FROM `portal` WHERE `id` = ? LIMIT ?", [req.params.portal_id, 1], function (error, data) {
             if (error || Object.keys(data).length === 0) {
-                res.send({
+                res.json({
                     status: false,
                     message: "Portal ID not found!"
                 });
@@ -49,7 +49,7 @@ export class PortalsController {
         db.query("UPDATE `portal` SET `is_active` = ? WHERE `id` = ?", [status, req.body.portal_id],
             (error, data) => {
                 if (!error) {
-                    res.send({
+                    res.json({
                         success: true,
                     });
                     return;
@@ -62,14 +62,14 @@ export class PortalsController {
             "(?, ?, ?)", [req.body.alias, req.body.name, 1],
             function (error, data) {
                 if (error) {
-                    res.send({
+                    res.json({
                         success: false,
                         message: "Oops. Data not saved!"
                     });
                     return;
                 }
 
-                res.send({
+                res.json({
                     success: true,
                     message: "Data saved!"
                 });
@@ -81,14 +81,14 @@ export class PortalsController {
             [req.body.name, req.body.portal_id],
             function (error, data) {
                 if (error || Object.keys(data).length === 0) {
-                    res.send({
+                    res.json({
                         status: false,
                         message: "Portal ID not found!"
                     });
                     return;
                 }
 
-                res.send({
+                res.json({
                     status: true,
                     message: "Data refreshed!"
                 })

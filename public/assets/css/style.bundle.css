@@ -50608,3 +50608,13 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.toast.toast-danger {
+    background: red;
+    color: #fff;
+}
+
+.toast.toast-success {
+    background: #50cd89;
+    color: #fff;
+}

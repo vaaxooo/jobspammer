@@ -16,6 +16,7 @@ $(document).ready(function () {
             if (this.readyState === 4) {
                 const status = this.status;
                 const data = JSON.parse(this.responseText);
+                $.showMessage(data.message, data.status);
                 if (data.status === true) {
                     location.href = "/"
                 }
@@ -93,6 +94,7 @@ $(document).ready(function () {
             if (this.readyState === 4) {
                 const status = this.status;
                 const data = JSON.parse(this.responseText);
+                $.showMessage(data.message, data.status);
                 if (data.status === true) {
                     location.href = "/"
                 }
@@ -128,6 +130,7 @@ $(document).ready(function () {
             if (this.readyState === 4) {
                 const status = this.status;
                 const data = JSON.parse(this.responseText);
+                $.showMessage(data.message, data.status);
                 if (data.status === true || redirect !== null) {
                     location.href = redirect
                 }
@@ -185,6 +188,16 @@ $(document).ready(function () {
         };
         xhr.open('POST', '/proxy/index');
         xhr.send(httpData);
+    }
+
+    $.showMessage = function showMessage(message, status) {
+        let block = `<div id="toast-container" class="toast-top-right">
+                        <div class="toast toast-${ status ? "success" : "danger" }" aria-live="polite" style="">
+                            <div class="toast-message">${ message }</div>
+                        </div>
+                    </div>`;
+        $("#notification").html(block);
+/*        setTimeout($("#notification").html(""), 10000);*/
     }
 
 });

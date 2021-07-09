@@ -37,7 +37,7 @@ export class TaskController {
     /*             HANDLES             */
     /*#################################*/
     handlerAdd(req, res) {
-        if (!req.files.file || !req.body.portal || !req.body.target_link || !req.body.email || !req.body.password) {
+        if (!req.files || !req.body.portal|| !req.body.target_link || !req.body.email || !req.body.password) {
             res.send({
                 status: false,
                 message: 'Please fill in all required fields!'
