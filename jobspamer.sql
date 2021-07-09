@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 07 2021 г., 17:46
+-- Время создания: Июл 09 2021 г., 15:57
 -- Версия сервера: 5.7.33-log
 -- Версия PHP: 7.4.20
 
@@ -50,9 +50,11 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `portal`, `user_name`, `last_name`, `password`, `email`, `status`, `status_order`, `target_link`, `file_mailing`, `all_links`, `send_links`, `fail_links`, `message`, `created_at`) VALUES
-(14, 1, NULL, NULL, 'asdsa', 'test@gmail.com', 1, 1, '523324sad', 'uploads/index.php', 52, 71, 21, 'Task completed successfully', '2021-07-06 14:16:02'),
-(15, 2, NULL, NULL, '12345', 'test@gmail.com', 1, 0, 'FREELANCEHUST', 'uploads/test.txt.txt', 0, 0, 0, NULL, '2021-07-06 14:21:49'),
-(38, 1, NULL, NULL, '', '', 1, 0, 'testlink.com', 'uploads/test.txt.txt', 0, 0, 0, NULL, '2021-07-07 13:17:04');
+(14, 1, NULL, NULL, 'asdsa', 'test@gmail.com', 1, 0, '523324sad', 'uploads/index.php', 52, 71, 21, 'Task completed successfully', '2021-07-06 14:16:02'),
+(15, 2, NULL, NULL, '12345', 'test@gmail.com', 0, 0, 'FREELANCEHUST', 'uploads/test.txt.txt', 0, 0, 0, NULL, '2021-07-06 14:21:49'),
+(38, 1, NULL, NULL, '', '', 1, 0, 'testlink.com', 'uploads/test.txt.txt', 0, 0, 0, NULL, '2021-07-07 13:17:04'),
+(39, 1, NULL, NULL, '12345', 'test@gmail.com', 0, 2, 'work.ua/jobs/by-company/21751/', 'uploads/testfile.odt', 52, 71, 21, 'Test message', '2021-07-08 06:49:34'),
+(64, 1, '', '', '', '', 1, 0, '123412321', 'uploads/test.py', 512, 125, 412, 'Task completed successfully', '2021-07-09 08:11:21');
 
 -- --------------------------------------------------------
 
@@ -63,6 +65,7 @@ INSERT INTO `order` (`id`, `portal`, `user_name`, `last_name`, `password`, `emai
 CREATE TABLE `portal` (
   `id` int(11) NOT NULL,
   `alias` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -71,11 +74,12 @@ CREATE TABLE `portal` (
 -- Дамп данных таблицы `portal`
 --
 
-INSERT INTO `portal` (`id`, `alias`, `is_active`, `created_at`) VALUES
-(1, 'work.ua', 1, '2021-07-05 14:33:29'),
-(2, 'freelancehunt', 1, '2021-07-06 14:21:14'),
-(3, 'fl.ru', 0, '2021-07-06 14:21:26'),
-(4, 'TEST PORTAL', 0, '2021-07-07 14:31:32');
+INSERT INTO `portal` (`id`, `alias`, `name`, `is_active`, `created_at`) VALUES
+(1, 'work.ua', 'Work', 1, '2021-07-05 14:33:29'),
+(2, 'freelancehunt', 'FreeLance  2345325', 0, '2021-07-06 14:21:14'),
+(3, 'fl.ru', 'FL.ru', 0, '2021-07-06 14:21:26'),
+(4, 'TEST PORTAL', '3214124', 0, '2021-07-07 14:31:32'),
+(5, '14213213', 'TEST', 1, '2021-07-09 11:47:09');
 
 -- --------------------------------------------------------
 
@@ -100,12 +104,12 @@ CREATE TABLE `proxy` (
 --
 
 INSERT INTO `proxy` (`proxy_id`, `protocol_proxy`, `host_proxy`, `port_proxy`, `username_proxy`, `password_proxy`, `is_active`, `fail_request_proxy`, `success_request_proxy`) VALUES
-(1, 'sdasd213sda', '82.213.61.21', 19124, 'test_USERSEER', 'test', 0, 16, 0),
+(1, 'sdasd213sda', '82.213.61.21', 19124, 'test_USERSEER', 'test', 0, 21, 0),
 (2, '42513', '61.13.61.124', 14212, 'test_proxy', 'test_proxy', 1, 0, 0),
 (3, '68124', '61.124.62.221', 42112, 'test1_proxy', 'test1_proxy', 0, 0, 0),
 (4, 'sad2132sd', '41.51.62.123', 12341, 'TEST_USER', 'TEST_PASSWORD', 1, 0, 0),
-(5, 'sad2132sd', '41.51.62.123', 12341, 'TEST_USER', 'TEST_PASSWORD', 1, 0, 0),
-(6, 'sda76218sdaa', '41.213.51.21', 32432, '234234asdwqe', 'testpassword', 1, 0, 0);
+(5, 'sad2132sd', '41.51.62.123', 12341, 'TEST_USER', 'TEST_PASSWORD', 1, 44, 0),
+(6, 'sda76218sdaa', '41.213.51.21', 32432, '234234asdwqe', 'testpassword', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -127,7 +131,8 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `alias`, `description`, `is_active`, `created_at`) VALUES
 (1, 'is_update_proxy', 'Change proxy status (Enabled / Disabled)', 1, '2021-07-07 13:29:15'),
-(2, 'proxy_test_123213', 'text description 213213', 0, '2021-07-07 13:52:42');
+(2, 'proxy_test', 'text description', 0, '2021-07-07 13:52:42'),
+(3, 'tesatar w', 'sadsadsaddsa sad sa', 1, '2021-07-09 11:46:41');
 
 --
 -- Индексы сохранённых таблиц
@@ -166,13 +171,13 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT для таблицы `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT для таблицы `portal`
 --
 ALTER TABLE `portal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `proxy`
@@ -184,7 +189,7 @@ ALTER TABLE `proxy`
 -- AUTO_INCREMENT для таблицы `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

@@ -15,7 +15,10 @@ $(document).ready(function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4) {
                 const status = this.status;
-                const data = this.responseText;
+                const data = JSON.parse(this.responseText);
+                if (data.status === true) {
+                    location.href = "/"
+                }
             }
         };
         xhttp.open('POST', $("#create-task").attr('action'));
@@ -90,7 +93,7 @@ $(document).ready(function () {
             if (this.readyState === 4) {
                 const status = this.status;
                 const data = JSON.parse(this.responseText);
-                if (data.success === true) {
+                if (data.status === true) {
                     location.href = "/"
                 }
             }
@@ -125,7 +128,7 @@ $(document).ready(function () {
             if (this.readyState === 4) {
                 const status = this.status;
                 const data = JSON.parse(this.responseText);
-                if (data.success === true || redirect !== null) {
+                if (data.status === true || redirect !== null) {
                     location.href = redirect
                 }
             }
@@ -143,7 +146,7 @@ $(document).ready(function () {
         xhr.onreadystatechange = function () {
             if (this.readyState === 4) {
                 const status = this.status;
-                const data = this.responseText;
+                const data = JSON.parse(this.responseText);
                 location.reload();
             }
         };
@@ -160,7 +163,7 @@ $(document).ready(function () {
         xhr.onreadystatechange = function () {
             if (this.readyState === 4) {
                 const status = this.status;
-                const data = this.responseText;
+                const data = JSON.parse(this.responseText);
                 location.reload();
             }
         };
@@ -176,7 +179,7 @@ $(document).ready(function () {
         xhr.onreadystatechange = function () {
             if (this.readyState === 4) {
                 const status = this.status;
-                const data = this.responseText;
+                const data = JSON.parse(this.responseText);
                 location.reload();
             }
         };

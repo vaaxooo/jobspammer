@@ -1,8 +1,24 @@
-require('dotenv').config()
-const handlebars = require('express-handlebars');
-const express = require('express');
+import dotenv from 'dotenv';
+import handlebars from 'express-handlebars';
+import express from 'express';
+import hbs from 'hbs';
+import router from './config/routes.js';
+import bodyParser from "body-parser";
+import fileUpload from 'express-fileupload';
+
 const app = express();
-const hbs = require('hbs');
+dotenv.config();
+
+app.use(fileUpload({
+    createParentPath: true,
+    useTempFiles: true,
+    tempFileDir: './public/temp_files'
+}));
+
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(bodyParser.json());
 
 app.engine(
     'hbs',
@@ -18,23 +34,7 @@ app.set('views', './views')
 app.set('view engine', 'hbs')
 app.use(express.static('./public'));
 
-app.use(require('./config/routes.js'));
+app.use(router);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running at http://127.0.0.1:${process.env.PORT}/`));
-
-
-hbs.registerHelper({
-    eq: (v1, v2) => v1 === v2,
-    ne: (v1, v2) => v1 !== v2,
-    lt: (v1, v2) => v1 < v2,
-    gt: (v1, v2) => v1 > v2,
-    lte: (v1, v2) => v1 <= v2,
-    gte: (v1, v2) => v1 >= v2,
-    and() {
-        return Array.prototype.every.call(arguments, Boolean);
-    },
-    or() {
-        return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
-    }
-});

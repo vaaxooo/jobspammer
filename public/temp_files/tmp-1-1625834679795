@@ -1,0 +1,8 @@
+import requests
+
+url = "http://127.0.0.1:3000/mainsystem/api/order/39/fail/"
+
+data = {"status": (None, True), "message": (None, "test"), "proxy_id": (None, 1)}
+response = requests.post(url, files=data)
+
+print(response.text)
