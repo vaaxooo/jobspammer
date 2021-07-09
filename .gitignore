@@ -1,4 +1,5 @@
 node_modules/
 public/uploads/
+public/temp_files/
 .env
 README.md
