@@ -9,7 +9,7 @@ export class TaskController {
     /*             INTERFACE           */
     /*#################################*/
     interfaceIndex(req, res) {
-        db.query("SELECT * FROM `order`",
+        db.query('SELECT o.*, p.name as "portal_name", p.id FROM `order` as o JOIN `portal` as p ON p.id = o.portal',
             (error, data) => {
                 if (!error) {
                     res.render('index', {
