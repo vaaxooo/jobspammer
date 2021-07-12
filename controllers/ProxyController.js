@@ -50,38 +50,56 @@ export class ProxyController {
             (error, data) => {
                 if (error) {
                     res.send({
-                        success: false,
+                        status: false,
                     });
                     return;
                 }
 
                 res.send({
-                    success: true,
+                    status: true,
                 });
 
             });
     }
 
     handlerAdd(req, res) {
+        console.log(req.body);
+        if (!req.body.protocol_proxy || !req.body.host_proxy || !req.body.port_proxy || !req.body.email || !req.body.username_proxy || !req.body.password_proxy) {
+            res.send({
+                status: false,
+                message: 'Please fill in all required fields!'
+            })
+            return;
+        }
+
         db.query("INSERT INTO `proxy` (`protocol_proxy`, `host_proxy`, `port_proxy`, `username_proxy`, `password_proxy`) VALUES " +
             "(?, ?, ?, ?, ?)", [req.body.protocol_proxy, req.body.host_proxy, req.body.port_proxy, req.body.username_proxy, req.body.password_proxy],
             function (error, data) {
                 if (error) {
                     res.send({
-                        success: false,
+                        status: false,
                         message: "Oops. Data not saved!"
                     });
                     return;
                 }
 
                 res.send({
-                    success: true,
+                    status: true,
                     message: "Data saved!"
                 });
             });
     }
 
     handlerEdit(req, res) {
+
+        if (!req.body.protocol_proxy || !req.body.host_proxy || !req.body.port_proxy || !req.body.email || !req.body.username_proxy || !req.body.password_proxy) {
+            res.send({
+                status: false,
+                message: 'Please fill in all required fields!'
+            })
+            return;
+        }
+
         db.query("UPDATE `proxy` SET `protocol_proxy` = ?, `host_proxy` = ?, `port_proxy` = ?, `username_proxy` = ?, `password_proxy` = ? WHERE `proxy_id` = ?",
             [req.body.protocol_proxy, req.body.host_proxy, req.body.port_proxy, req.body.username_proxy, req.body.password_proxy, req.body.proxy_id],
             function (error, data) {

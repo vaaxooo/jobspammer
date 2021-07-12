@@ -32,12 +32,12 @@
                                         <span class="badge badge-light-danger fs-7 fw-boldest me-2">False</span>
                                     </td>
                                 {{/if}}
-                                {{#if status_order }}
+                                {{#ifeq status_order '1'}}
                                     <td>
                                         <span class="badge badge-light-success fs-7 fw-boldest me-2">Done</span>
                                     </td>
                                 {{else}}
-                                    {{#if status}}
+                                    {{#ifeq status_order '2'}}
                                         <td>
                                             <span class="badge badge-light-danger fs-7 fw-boldest me-2">Fail</span>
                                         </td>
@@ -45,8 +45,8 @@
                                         <td>
                                             <span class="badge badge-light-success fs-7 fw-boldest me-2">Created</span>
                                         </td>
-                                    {{/if}}
-                                {{/if}}
+                                    {{/ifeq}}
+                                {{/ifeq}}
                                 <td>{{ all_links }}</td>
                                 <td>{{ send_links }}</td>
                                 <td>{{ fail_links }}</td>
@@ -55,7 +55,7 @@
                                     <td></td>
                                 {{else}}
                                     <td>
-                                         <button type="button" class="btn btn-sm btn-active-primary" onclick="$.restartTask({{ id }})">Restart</button>
+                                         <button type="button" class="btn btn-sm btn-active-primary" onclick="$.restartTask({{ task_id }})">Restart</button>
                                     </td>
                                 {{/if}}
                             </tr>
@@ -65,8 +65,37 @@
                     </table>
                 </div>
             </div>
+
         </div>
         <!--end::Card-->
+
+        <ul class="pagination">
+            <li class="page-item previous disabled">
+                <a href="#" class="page-link"><i class="previous"></i></a>
+            </li>
+            <li class="page-item ">
+                <a href="#" class="page-link">1</a>
+            </li>
+            <li class="page-item active">
+                <a href="#" class="page-link">2</a>
+            </li>
+            <li class="page-item ">
+                <a href="#" class="page-link">3</a>
+            </li>
+            <li class="page-item ">
+                <a href="#" class="page-link">4</a>
+            </li>
+            <li class="page-item ">
+                <a href="#" class="page-link">5</a>
+            </li>
+            <li class="page-item ">
+                <a href="#" class="page-link">6</a>
+            </li>
+            <li class="page-item next">
+                <a href="#" class="page-link"><i class="next"></i></a>
+            </li>
+        </ul>
+
     </div>
     <!--end::Container-->
 </div>

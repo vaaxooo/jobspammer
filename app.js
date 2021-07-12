@@ -5,9 +5,14 @@ import hbs from 'hbs';
 import router from './config/routes.js';
 import bodyParser from "body-parser";
 import fileUpload from 'express-fileupload';
+import Handlebars from 'handlebars';
+
+/*
+import Helpers from './config/_helpers.js';*/
 
 const app = express();
 dotenv.config();
+
 
 app.use(fileUpload({
     createParentPath: true,
@@ -19,6 +24,13 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser.json());
+
+Handlebars.registerHelper('ifeq', function(a, b, options) {
+    if (a == b) return options.fn(this)
+    else return options.inverse(this)
+});
+
+hbs.reg
 
 app.engine(
     'hbs',

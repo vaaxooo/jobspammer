@@ -50,7 +50,7 @@ export class PortalsController {
             (error, data) => {
                 if (!error) {
                     res.json({
-                        success: true,
+                        status: true,
                     });
                     return;
                 }
@@ -63,14 +63,14 @@ export class PortalsController {
             function (error, data) {
                 if (error) {
                     res.json({
-                        success: false,
+                        status: false,
                         message: "Oops. Data not saved!"
                     });
                     return;
                 }
 
                 res.json({
-                    success: true,
+                    status: true,
                     message: "Data saved!"
                 });
             });

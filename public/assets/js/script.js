@@ -86,6 +86,7 @@ $(document).ready(function () {
      * RESTART TASK BUTTON
      */
     $.restartTask = function restartTask(task_id) {
+        console.log(task_id);
         event.preventDefault();
         const httpData = new FormData();
         httpData.append("task_id", task_id);

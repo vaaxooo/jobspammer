@@ -62,14 +62,14 @@ export class SettingsController {
             function (error, data) {
                 if (error) {
                     res.send({
-                        success: false,
+                        status: false,
                         message: "Oops. Data not saved!"
                     });
                     return;
                 }
 
                 res.send({
-                    success: true,
+                    status: true,
                     message: "Data saved!"
                 });
             });
@@ -81,7 +81,7 @@ export class SettingsController {
             (error, data) => {
                 if (!error) {
                     res.send({
-                        success: true,
+                        status: true,
                     });
                     return;
                 }

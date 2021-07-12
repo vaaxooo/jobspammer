@@ -9,14 +9,22 @@ export class TaskController {
     /*             INTERFACE           */
     /*#################################*/
     interfaceIndex(req, res) {
-        db.query('SELECT o.*, p.name as "portal_name", p.id FROM `order` as o JOIN `portal` as p ON p.id = o.portal',
+        let page = req.query.page;
+        let limit = 2;
+        let offset = page > 1 ? ((limit * req.query.page || 1) - limit) : 0;
+        db.query('SELECT o.*, o.id as "task_id", p.name as "portal_name", p.id FROM `order` as o JOIN `portal` as p ON p.id = o.portal ORDER BY o.id LIMIT ?, ?',
+            [offset, limit],
             (error, data) => {
-                if (!error) {
-                    res.render('index', {
-                        title: 'Tasks list',
-                        tasks: data
-                    });
-                }
+                db.query("SELECT COUNT(*) as 'count' FROM `order`", function (error, corder){
+                    if (!error) {
+                        res.render('index', {
+                            title: 'Tasks list',
+                            tasks: data,
+                            total_tasks: corder.count,
+                            total_current_tasks: data.length
+                        });
+                    }
+                });
             });
     }
 
@@ -32,6 +40,40 @@ export class TaskController {
             });
     }
 
+    interfaceStatistics(req, res) {
+        let tasks = [];
+        db.query("SELECT * FROM `order`", function (error, data) {
+            tasks['data'] = data;
+            tasks['total'] = data.length;
+            tasks['created'] = data.filter(task => task.status_order === 0);
+            tasks['done'] = data.filter(task => task.status_order === 1);
+            tasks['fail'] = data.filter(task => task.status_order === 2);
+        });
+
+        let portals = [];
+        db.query("SELECT * FROM `portal`", function (error, data) {
+            portals['data'] = data;
+            portals['total'] = data.length;
+            portals['active'] = data.filter(portal => portal.is_active === 1);
+            portals['in_active'] = data.filter(portal => portal.is_active === 0);
+        });
+
+        let proxies = [];
+        db.query("SELECT * FROM `proxy`", function (error, data) {
+            proxies['data'] = data;
+            proxies['total'] = data.length;
+            proxies['active'] = data.filter(proxy => proxy.is_active === 1);
+            proxies['in_active'] = data.filter(proxy => proxy.is_active === 0);
+        });
+
+        res.render('statistics', {
+            title: 'Statistic',
+            tasks,
+            portals,
+            proxies
+        });
+    }
+
 
     /*#################################*/
     /*             HANDLES             */
@@ -41,7 +83,7 @@ export class TaskController {
             res.send({
                 status: false,
                 message: 'Please fill in all required fields!'
-            })
+            });
             return;
         }
 
@@ -52,7 +94,7 @@ export class TaskController {
             res.send({
                 status: false,
                 message: 'Only .docx, .doc, .rtf, .txt and .pdf format allowed!'
-            })
+            });
             return;
         }
 
@@ -112,7 +154,7 @@ export class TaskController {
                                         res.send({
                                             status: true,
                                             message: "Task has been created!"
-                                        })
+                                        });
                                     });
 
                             }
@@ -129,7 +171,7 @@ export class TaskController {
                     res.send({
                         status: false,
                         message: "Oops.. Something went wrong!"
-                    })
+                    });
                     return;
                 }
                 db.query("UPDATE `order` SET `status_order` = ?, `status` = ? WHERE `id` = ?", [0, 1, req.body.task_id], function (error, data) {
@@ -137,11 +179,11 @@ export class TaskController {
                         res.send({
                             status: false,
                             message: "Oops.. Something went wrong!"
-                        })
+                        });
                         return;
                     }
 
-                    db.query("SELECT o.*, pr.proxy_id, pr.protocol_proxy, pr.host_proxy, pr.port_proxy, pr.username_proxy, pr.password_proxy, pr.fail_request_proxy, p.alias, s.alias as 'settings_alias', s.is_active " +
+                    db.query("SELECT o.*, o.id as 'task_id', pr.proxy_id, pr.protocol_proxy, pr.host_proxy, pr.port_proxy, pr.username_proxy, pr.password_proxy, pr.fail_request_proxy, p.alias, s.alias as 'settings_alias', s.is_active " +
                         "FROM `order` as o " +
                         "JOIN `proxy` as pr ON o.id = ?" +
                         "JOIN `settings` as s ON s.alias = 'is_update_proxy' " +
@@ -184,7 +226,7 @@ export class TaskController {
                             res.send({
                                 status: true,
                                 message: "Task restarted!"
-                            })
+                            });
                         });
 
                 });
