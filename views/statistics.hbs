@@ -78,5 +78,34 @@
         </div>
 
 
+        <div class="row g-6 g-xl-0 mt-5">
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Link information</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped gy-7 gs-7">
+                        <thead>
+                        <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                            <th>Total links</th>
+                            <th>Success links</th>
+                            <th>Fail links</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ tasks.total_links }}</td>
+                            <td>{{ tasks.send_links }}</td>
+                            <td>{{ tasks.fail_links }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
     </div>
 </div>

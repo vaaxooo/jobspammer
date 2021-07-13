@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d29da87f-4228-4c02-ac96-0b8797a46f6d" name="Default Changelist" comment="5-e commit">
-      <change afterPath="$PROJECT_DIR$/services/Auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/account/edit.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="d29da87f-4228-4c02-ac96-0b8797a46f6d" name="Default Changelist" comment="Added auth and pagination, fixed bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/AccountController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AccountController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/PortalsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/PortalsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/ProxyController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProxyController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/SettingsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SettingsController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/TaskController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TaskController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.bundle.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.bundle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/account/login.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/account/login.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/header.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/header.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/menu.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/menu.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/statistics.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/statistics.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +61,7 @@
       <workItem from="1625835641591" duration="6669000" />
       <workItem from="1626069709243" duration="6805000" />
       <workItem from="1626078772372" duration="3835000" />
-      <workItem from="1626162194043" duration="17135000" />
+      <workItem from="1626162194043" duration="19110000" />
     </task>
     <task id="LOCAL-00001" summary="3-e commit">
       <created>1625742739424</created>
@@ -135,6 +120,7 @@
     <MESSAGE value="3-e commit" />
     <MESSAGE value="4-e commit" />
     <MESSAGE value="5-e commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="5-e commit" />
+    <MESSAGE value="Added auth and pagination, fixed bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added auth and pagination, fixed bugs" />
   </component>
 </project>

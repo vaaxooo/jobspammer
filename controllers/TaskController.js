@@ -50,6 +50,14 @@ export class TaskController {
             tasks['created'] = data.filter(task => task.status_order === 0);
             tasks['done'] = data.filter(task => task.status_order === 1);
             tasks['fail'] = data.filter(task => task.status_order === 2);
+            tasks['total_links'] = 0;
+            tasks['send_links'] = 0;
+            tasks['fail_links'] = 0;
+            data.filter((total) => {
+                tasks['total_links'] = +tasks['total_links'] + +total.all_links;
+                tasks['send_links'] = +tasks['send_links'] + +total.send_links;
+                tasks['fail_links'] = +tasks['fail_links'] + +total.fail_links;
+            });
         });
 
         let portals = [];
@@ -68,6 +76,8 @@ export class TaskController {
             proxies['in_active'] = data.filter(proxy => proxy.is_active === 0);
         });
 
+
+
         res.render('statistics', {
             title: 'Statistic',
             user: req.session.User,
@@ -75,6 +85,7 @@ export class TaskController {
             portals,
             proxies
         });
+
     }
 
 
