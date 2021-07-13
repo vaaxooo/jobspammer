@@ -49,5 +49,12 @@
             </div>
         </div>
 
+        <div class="mt-2" id="pagination"></div>
+
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $.createPagination({{ total_proxies }}, {{ total_current_proxies }});
+    });
+</script>

@@ -6,14 +6,23 @@ export class PortalsController {
     /*             INTERFACE           */
     /*#################################*/
     interfaceIndex(req, res) {
-        db.query("SELECT * FROM `portal`",
+        let page = req.query.page;
+        let limit = 5;
+        let offset = page > 1 ? ((limit * req.query.page || 1) - limit) : 0;
+        db.query("SELECT * FROM `portal` ORDER BY `id` LIMIT ?, ?",
+            [offset, limit],
             (error, data) => {
-                if (!error) {
-                    res.render('portal/index', {
-                        title: 'Portal',
-                        portal: data
-                    });
-                }
+                db.query("SELECT COUNT(*) as 'count' FROM `portal`", function (error, cportal) {
+                    if (!error) {
+                        res.render('portal/index', {
+                            title: 'Portal',
+                            portal: data,
+                            total_portals: cportal[0].count,
+                            total_current_portals: data.length
+                        });
+                    }
+                });
+
             });
     }
 
@@ -43,6 +52,7 @@ export class PortalsController {
 
     /*#################################*/
     /*             HANDLES             */
+
     /*#################################*/
     handlerIndex(req, res) {
         let status = req.body.status === 'in_active' ? 0 : 1;

@@ -4,16 +4,25 @@ export class ProxyController {
 
     /*#################################*/
     /*             INTERFACE           */
+
     /*#################################*/
     interfaceIndex(req, res) {
-        db.query("SELECT * FROM `proxy`",
+        let page = req.query.page;
+        let limit = 5;
+        let offset = page > 1 ? ((limit * req.query.page || 1) - limit) : 0;
+        db.query("SELECT * FROM `proxy` ORDER BY `proxy_id` LIMIT ?, ?",
+            [offset, limit],
             (error, data) => {
-                if (!error) {
-                    res.render('proxy/index', {
-                        title: 'Proxy list',
-                        proxy: data
-                    })
-                }
+                db.query("SELECT COUNT(*) as 'count' FROM `proxy`", function (error, cproxy) {
+                    if (!error) {
+                        res.render('proxy/index', {
+                            title: 'Proxy list',
+                            proxy: data,
+                            total_proxies: cproxy[0].count,
+                            total_current_proxies: data.length
+                        })
+                    }
+                });
             });
     }
 
@@ -43,6 +52,7 @@ export class ProxyController {
 
     /*#################################*/
     /*             HANDLES             */
+
     /*#################################*/
     handlerIndex(req, res) {
         let status = req.body.status === 'in_active' ? 0 : 1;
