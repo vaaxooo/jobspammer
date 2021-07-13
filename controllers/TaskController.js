@@ -19,6 +19,7 @@ export class TaskController {
                     if (!error) {
                         res.render('index', {
                             title: 'Tasks list',
+                            user: req.session.User,
                             tasks: data,
                             total_tasks: corder[0].count,
                             total_current_tasks: data.length
@@ -34,6 +35,7 @@ export class TaskController {
                 if (!error) {
                     res.render('create_task', {
                         title: 'Create task',
+                        user: req.session.User,
                         portals: data
                     })
                 }
@@ -68,6 +70,7 @@ export class TaskController {
 
         res.render('statistics', {
             title: 'Statistic',
+            user: req.session.User,
             tasks,
             portals,
             proxies

@@ -50618,3 +50618,7 @@ input::-webkit-inner-spin-button {
     background: #50cd89;
     color: #fff;
 }
+
+.user-title {
+    margin-right: 15px;
+}

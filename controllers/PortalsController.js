@@ -16,6 +16,7 @@ export class PortalsController {
                     if (!error) {
                         res.render('portal/index', {
                             title: 'Portal',
+                            user: req.session.User,
                             portal: data,
                             total_portals: cportal[0].count,
                             total_current_portals: data.length
@@ -28,7 +29,8 @@ export class PortalsController {
 
     interfaceAdd(req, res) {
         res.render('portal/add', {
-            title: 'Add new portal'
+            title: 'Add new portal',
+            user: req.session.User,
         });
     }
 
@@ -44,6 +46,7 @@ export class PortalsController {
 
             res.render('portal/edit', {
                 title: 'Edit portal ' + data[0].alias,
+                user: req.session.User,
                 portal: data[0]
             });
         });

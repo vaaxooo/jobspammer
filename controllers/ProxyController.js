@@ -17,6 +17,7 @@ export class ProxyController {
                     if (!error) {
                         res.render('proxy/index', {
                             title: 'Proxy list',
+                            user: req.session.User,
                             proxy: data,
                             total_proxies: cproxy[0].count,
                             total_current_proxies: data.length
@@ -28,7 +29,8 @@ export class ProxyController {
 
     interfaceAdd(req, res) {
         res.render('proxy/add', {
-            title: 'Adding a new proxy'
+            title: 'Adding a new proxy',
+            user: req.session.User
         });
     }
 
@@ -44,6 +46,7 @@ export class ProxyController {
 
             res.render('proxy/edit', {
                 title: 'Edit proxy ' + data[0].host_proxy + ":" + data[0].port_proxy,
+                user: req.session.User,
                 proxy: data[0]
             });
         });
@@ -101,8 +104,7 @@ export class ProxyController {
     }
 
     handlerEdit(req, res) {
-
-        if (!req.body.protocol_proxy || !req.body.host_proxy || !req.body.port_proxy || !req.body.email || !req.body.username_proxy || !req.body.password_proxy) {
+        if (!req.body.protocol_proxy || !req.body.host_proxy || !req.body.port_proxy || !req.body.username_proxy || !req.body.password_proxy) {
             res.send({
                 status: false,
                 message: 'Please fill in all required fields!'

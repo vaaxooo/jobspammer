@@ -1,0 +1,74 @@
+<div class="docs-content d-flex flex-column flex-column-fluid" id="kt_docs_content">
+    <div class="container" id="kt_docs_content_container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <h3 class="card-title">Change information</h3>
+                    </div>
+                    <form method="post" action="/account/edit" id="account-edit" class="card-body fs-6 py-15 px-10 py-lg-15 px-lg-15">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="fv-row mb-10 fv-plugins-icon-container">
+                                    <label class="form-label fs-6 fw-bolder text-dark required">Firstname</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="text" name="firstname" autocomplete="off" id="firstname" value="{{ user.firstname }}" required="">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="fv-row mb-10 fv-plugins-icon-container">
+                                    <label class="form-label fs-6 fw-bolder text-dark required">Lastname</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="text" name="lastname" autocomplete="off" id="lastname" value="{{ user.lastname }}" required="">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fv-row mb-10 fv-plugins-icon-container">
+                            <label class="form-label fs-6 fw-bolder text-dark required">E-mail</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" id="email" value="{{ user.email }}" required="">
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary fw-bolder ml-5" id="btn-account-edit">Save changes</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <h3 class="card-title">Change password</h3>
+                    </div>
+                    <form method="post" action="/account/changepassword" id="account-changepassword" class="card-body fs-6 py-15 px-10 py-lg-15 px-lg-15">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="fv-row mb-10 fv-plugins-icon-container">
+                                    <label class="form-label fs-6 fw-bolder text-dark required">New password</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="password" name="new_password" autocomplete="off" id="new_password" required="">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="fv-row mb-10 fv-plugins-icon-container">
+                                    <label class="form-label fs-6 fw-bolder text-dark required">Repeat new password</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="password" name="repeat_password" autocomplete="off" id="repeat_password" required="">
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fv-row mb-10 fv-plugins-icon-container">
+                            <label class="form-label fs-6 fw-bolder text-dark required">Current password</label>
+                            <input class="form-control form-control-lg form-control-solid" type="password" name="current_password" autocomplete="off" id="current_password" required="">
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary fw-bolder ml-5" id="btn-account-changepassword">Change password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

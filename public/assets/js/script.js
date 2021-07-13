@@ -5,6 +5,7 @@ $(document).ready(function () {
      */
     $("#btn-create-task").on('click', function () {
         event.preventDefault();
+        $.hideMessage();
         let data = getFormData($("#create-task"));
         const httpData = new FormData();
         for (let prop in data) {
@@ -54,6 +55,32 @@ $(document).ready(function () {
         XMLRequest(data, "/proxy/edit", "/proxy/edit/" + $("#proxy_id").val());
     });
 
+    /**
+     * LOGIN ACCOUNT
+     */
+    $("#btn-account-login").on('click', function () {
+        event.preventDefault();
+        let data = getFormData($("#account-login"));
+        XMLRequest(data, "/account/login", "/");
+    });
+
+    /**
+     * CHANGE PASSWORD ACCOUNT
+     */
+    $("#btn-account-changepassword").on('click', function () {
+        event.preventDefault();
+        let data = getFormData($("#account-changepassword"));
+        XMLRequest(data, "/account/changepassword", "/account/logout");
+    });
+
+    /**
+     * CHANGE PASSWORD ACCOUNT
+     */
+    $("#btn-account-edit").on('click', function () {
+        event.preventDefault();
+        let data = getFormData($("#account-edit"));
+        XMLRequest(data, "/account/edit", "/account/edit");
+    });
 
     /**
      * EDIT PORTAL
@@ -86,7 +113,7 @@ $(document).ready(function () {
      * RESTART TASK BUTTON
      */
     $.restartTask = function restartTask(task_id) {
-        console.log(task_id);
+        $.hideMessage();
         event.preventDefault();
         const httpData = new FormData();
         httpData.append("task_id", task_id);
@@ -122,6 +149,7 @@ $(document).ready(function () {
 
     function XMLRequest(data, url, redirect = null, method = "POST",) {
         const httpData = new FormData();
+        $.hideMessage();
 
         for (let prop in data) {
             httpData.append(prop, data[prop]);
@@ -132,7 +160,7 @@ $(document).ready(function () {
                 const status = this.status;
                 const data = JSON.parse(this.responseText);
                 $.showMessage(data.message, data.status);
-                if (data.status === true || redirect !== null) {
+                if (data.status === true && redirect !== null) {
                     location.href = redirect
                 }
             }
@@ -201,6 +229,10 @@ $(document).ready(function () {
         /*        setTimeout($("#notification").html(""), 10000);*/
     }
 
+    $.hideMessage = function hideMessage() {
+        $("#notification").html("");
+    }
+
 
     $.createPagination = function createPagination(total, current_total) {
         const paginationBlock = $("#pagination");
@@ -225,7 +257,6 @@ $(document).ready(function () {
                 element += `<li class="page-item ${current_page === i ? 'active' : ''} ${i > pages ? 'disabled' : ''}">
                                 <a href="${location.pathname}?page=${i}" class="page-link">${i}</a>
                             </li>`;
-
             }
 
             if(+pages > 6) {

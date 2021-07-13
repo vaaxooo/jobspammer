@@ -6,6 +6,9 @@ import router from './config/routes.js';
 import bodyParser from "body-parser";
 import fileUpload from 'express-fileupload';
 import Handlebars from 'handlebars';
+import session from 'express-session';
+
+import {Auth} from './services/Auth.js';
 
 /*
 import Helpers from './config/_helpers.js';*/
@@ -13,6 +16,13 @@ import Helpers from './config/_helpers.js';*/
 const app = express();
 dotenv.config();
 
+app.use(
+    session({
+        secret: process.env.AUTH_SECRETKEY,
+        saveUninitialized: false,
+        resave: false,
+    })
+)
 
 app.use(fileUpload({
     createParentPath: true,

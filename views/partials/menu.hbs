@@ -5,7 +5,7 @@
     <!--begin::Logo-->
     <div class="docs-aside-logo flex-column-auto h-75px" id="kt_docs_aside_logo">
         <!--begin::Link-->
-        <a href="https://preview.keenthemes.com/craft/index.html">
+        <a href="/">
             <h1>JobSpammer</h1>
         </a>
         <!--end::Link-->
@@ -19,6 +19,7 @@
              data-kt-scroll-dependencies="#kt_docs_aside_logo" data-kt-scroll-wrappers="#kt_docs_aside_menu"
              data-kt-scroll-offset="10px" style="height: 975px;">
             <!--begin::Menu-->
+            {{#if user }}
             <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
                  id="#kt_docs_aside_menu" data-kt-menu="true">
                 <div class="menu-item"></div>
@@ -59,8 +60,25 @@
                         <span class="menu-title">Statistic</span>
                     </a>
                 </div>
+                <div class="menu-item">
+                    <a class="menu-link py-2"
+                       href="/account/logout">
+                        <span class="menu-title">Logout</span>
+                    </a>
+                </div>
             </div>
-            <!--end::Menu-->
+            {{else}}
+                <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
+                     id="#kt_docs_aside_menu" data-kt-menu="true">
+                    <div class="menu-item"></div>
+                    <div class="menu-item">
+                        <a class="menu-link py-2"
+                           href="/account/login">
+                            <span class="menu-title">Login</span>
+                        </a>
+                    </div>
+                </div>
+            {{/if}}
         </div>
     </div>
     <!--end::Menu-->

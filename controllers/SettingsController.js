@@ -8,6 +8,7 @@ export class SettingsController {
                 if (!error) {
                     res.render('settings/index', {
                         title: 'Settings',
+                        user: req.session.User,
                         settings: data
                     });
                 }
@@ -16,7 +17,8 @@ export class SettingsController {
 
     interfaceAdd(req, res) {
         res.render('settings/add', {
-            title: 'Add new alias'
+            title: 'Add new alias',
+            user: req.session.User
         });
     }
 
@@ -32,6 +34,7 @@ export class SettingsController {
 
             res.render('settings/edit', {
                 title: 'Edit alias ' + data[0].alias,
+                user: req.session.User,
                 settings: data[0]
             });
         });

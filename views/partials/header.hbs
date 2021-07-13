@@ -25,7 +25,7 @@
             <!--end::Aside toggle-->
             <!--begin::Logo-->
             <div class="d-flex d-lg-none align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
-                <a href="https://preview.keenthemes.com/craft/index.html">
+                <a href="/">
                     <img alt="Logo" src="./Craft Theme _ Keenthemes_files/logo-default.svg"
                          class="max-h-50px">
                 </a>
@@ -45,6 +45,12 @@
                     <!--end::Page title-->
                 </div>
 
+                {{#if user}}
+                    <div class="d-flex align-items-center">
+                        <b class="user-title">Hello, {{ user.firstname }}</b>
+                        <a class="btn btn-primary fw-bolder ml-5" href="/account/edit">Account settings</a>
+                    </div>
+                {{/if}}
             </div>
             <!--end::Wrapper-->
         </div>
