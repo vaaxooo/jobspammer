@@ -71,6 +71,14 @@ export class PortalsController {
     }
 
     handlerAdd(req, res) {
+        if(!req.body.alias || !req.body.name) {
+            res.json({
+                status: false,
+                message: "Please fill in all required fields!"
+            });
+            return false;
+        }
+
         db.query("INSERT INTO `portal` (`alias`, `name`, `is_active`) VALUES " +
             "(?, ?, ?)", [req.body.alias, req.body.name, 1],
             function (error, data) {
@@ -90,6 +98,14 @@ export class PortalsController {
     }
 
     handlerEdit(req, res) {
+        if(!req.body.name) {
+            res.json({
+                status: false,
+                message: "Please fill in all required fields!"
+            });
+            return false;
+        }
+
         db.query("UPDATE `portal` SET `name` = ? WHERE `id` = ?",
             [req.body.name, req.body.portal_id],
             function (error, data) {

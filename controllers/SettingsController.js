@@ -41,6 +41,14 @@ export class SettingsController {
     }
 
     handlerEdit(req, res) {
+        if(!req.body.alias || !req.body.description) {
+            res.json({
+                status: false,
+                message: "Please fill in all required fields!"
+            });
+            return false;
+        }
+
         db.query("UPDATE `settings` SET `alias` = ?, `description` = ? WHERE `id` = ?",
             [req.body.alias, req.body.description, req.body.settings_id],
             function (error, data) {
@@ -60,6 +68,14 @@ export class SettingsController {
     }
 
     handlerAdd(req, res) {
+        if(!req.body.alias || !req.body.description) {
+            res.json({
+                status: false,
+                message: "Please fill in all required fields!"
+            });
+            return false;
+        }
+
         db.query("INSERT INTO `settings` (`alias`, `is_active`, `description`) VALUES " +
             "(?, ?, ?)", [req.body.alias, 1, req.body.description],
             function (error, data) {

@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d29da87f-4228-4c02-ac96-0b8797a46f6d" name="Default Changelist" comment="Added auth and pagination, fixed bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/TaskController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TaskController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/statistics.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/statistics.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/AccountController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AccountController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/PortalsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/PortalsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ProxyController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProxyController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/SettingsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SettingsController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +63,7 @@
       <workItem from="1625835641591" duration="6669000" />
       <workItem from="1626069709243" duration="6805000" />
       <workItem from="1626078772372" duration="3835000" />
-      <workItem from="1626162194043" duration="19110000" />
+      <workItem from="1626162194043" duration="19389000" />
     </task>
     <task id="LOCAL-00001" summary="3-e commit">
       <created>1625742739424</created>

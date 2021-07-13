@@ -70,6 +70,14 @@ export class AccountController {
     }
 
     handlerEdit(req, res) {
+        if(!req.body.firstname || !req.body.lastname || !req.body.email) {
+            res.json({
+                status: false,
+                message: "Please fill in all required fields!"
+            });
+            return false;
+        }
+
         db.query("UPDATE `admins` SET `firstname` = ?, `lastname` = ?, `email` = ? WHERE `email` = ?",
             [req.body.firstname, req.body.lastname, req.body.email, req.session.User.email], function (error, data) {
                 if (error) {

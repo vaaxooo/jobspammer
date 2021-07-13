@@ -76,7 +76,6 @@ export class ProxyController {
     }
 
     handlerAdd(req, res) {
-        console.log(req.body);
         if (!req.body.protocol_proxy || !req.body.host_proxy || !req.body.port_proxy || !req.body.email || !req.body.username_proxy || !req.body.password_proxy) {
             res.send({
                 status: false,
