@@ -69,33 +69,14 @@
         </div>
         <!--end::Card-->
 
-        <ul class="pagination">
-            <li class="page-item previous disabled">
-                <a href="#" class="page-link"><i class="previous"></i></a>
-            </li>
-            <li class="page-item ">
-                <a href="#" class="page-link">1</a>
-            </li>
-            <li class="page-item active">
-                <a href="#" class="page-link">2</a>
-            </li>
-            <li class="page-item ">
-                <a href="#" class="page-link">3</a>
-            </li>
-            <li class="page-item ">
-                <a href="#" class="page-link">4</a>
-            </li>
-            <li class="page-item ">
-                <a href="#" class="page-link">5</a>
-            </li>
-            <li class="page-item ">
-                <a href="#" class="page-link">6</a>
-            </li>
-            <li class="page-item next">
-                <a href="#" class="page-link"><i class="next"></i></a>
-            </li>
-        </ul>
+        <div class="mt-2" id="pagination"></div>
 
     </div>
     <!--end::Container-->
 </div>
+
+<script>
+    $(document).ready(function () {
+        $.createPagination({{ total_tasks }}, {{ total_current_tasks }});
+    });
+</script>

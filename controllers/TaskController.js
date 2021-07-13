@@ -10,7 +10,7 @@ export class TaskController {
     /*#################################*/
     interfaceIndex(req, res) {
         let page = req.query.page;
-        let limit = 2;
+        let limit = 5;
         let offset = page > 1 ? ((limit * req.query.page || 1) - limit) : 0;
         db.query('SELECT o.*, o.id as "task_id", p.name as "portal_name", p.id FROM `order` as o JOIN `portal` as p ON p.id = o.portal ORDER BY o.id LIMIT ?, ?',
             [offset, limit],
@@ -20,7 +20,7 @@ export class TaskController {
                         res.render('index', {
                             title: 'Tasks list',
                             tasks: data,
-                            total_tasks: corder.count,
+                            total_tasks: corder[0].count,
                             total_current_tasks: data.length
                         });
                     }

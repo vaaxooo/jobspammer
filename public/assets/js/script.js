@@ -193,12 +193,62 @@ $(document).ready(function () {
 
     $.showMessage = function showMessage(message, status) {
         let block = `<div id="toast-container" class="toast-top-right">
-                        <div class="toast toast-${ status ? "success" : "danger" }" aria-live="polite" style="">
-                            <div class="toast-message">${ message }</div>
+                        <div class="toast toast-${status ? "success" : "danger"}" aria-live="polite" style="">
+                            <div class="toast-message">${message}</div>
                         </div>
                     </div>`;
         $("#notification").html(block);
-/*        setTimeout($("#notification").html(""), 10000);*/
+        /*        setTimeout($("#notification").html(""), 10000);*/
     }
+
+
+    $.createPagination = function createPagination(total, current_total) {
+        const paginationBlock = $("#pagination");
+        paginationBlock.html();
+        let pages = +Math.ceil(+current_total / +total) + 1;
+
+        if (current_total <= total) {
+            paginationBlock.removeClass('hidden');
+            let current_page = +getUrlParam("page");
+
+            if (!current_total || pages <= 1) {
+                paginationBlock.addClass('hidden');
+                return false;
+            }
+
+            let element = `<ul class="pagination">
+                                <li class="page-item previous ${current_page === 1 ? 'disabled' : ''}">
+                                    <a href="${location.pathname}?page=${+current_page - 1}" class="page-link"><i class="previous"></i></a>
+                                </li>`;
+
+            for (let i = +current_page > 1 ? +current_page - 1 : +current_page; i <= 5; i++) {
+                element += `<li class="page-item ${current_page === i ? 'active' : ''} ${i > pages ? 'disabled' : ''}">
+                                <a href="${location.pathname}?page=${i}" class="page-link">${i}</a>
+                            </li>`;
+
+            }
+
+            if(+pages > 6) {
+                element += `<li class="page-item ${current_page === pages ? 'active' : ''} ${pages >= current_page ? 'disabled' : ''}">
+                                <a href="${location.pathname}?page=${+pages}" class="page-link">${pages}</a>
+                            </li>`
+            }
+
+            element += `<li class="page-item next ${current_page === pages ? 'disabled' : ''}">
+                            <a href="${location.pathname}?page=${+current_page + 1}" class="page-link"><i class="next"></i></a>
+                        </li>`
+
+            paginationBlock.html(element);
+        }
+
+    }
+
+
+    function getUrlParam(name) {
+        var s = window.location.search;
+        s = s.match(new RegExp(name + '=([^&=]+)'));
+        return s ? s[1] : 1;
+    };
+
 
 });
