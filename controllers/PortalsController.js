@@ -5,6 +5,12 @@ export class PortalsController {
     /*#################################*/
     /*             INTERFACE           */
     /*#################################*/
+
+    /**
+     * PAGE [/portals/index]
+     * @param req
+     * @param res
+     */
     interfaceIndex(req, res) {
         db.query("SELECT * FROM `settings` WHERE `alias` = ? LIMIT ?", ['pagination_limit', 1], function (error_settings, settings) {
             if (error_settings || !settings) {
@@ -36,6 +42,11 @@ export class PortalsController {
         });
     }
 
+    /**
+     * PAGE [/portals/add]
+     * @param req
+     * @param res
+     */
     interfaceAdd(req, res) {
         res.render('portal/add', {
             title: 'Add new portal',
@@ -43,6 +54,11 @@ export class PortalsController {
         });
     }
 
+    /**
+     * PAGE [/portals/edit/:portal_id]
+     * @param req
+     * @param res
+     */
     interfaceEdit(req, res) {
         db.query("SELECT * FROM `portal` WHERE `id` = ? LIMIT ?", [req.params.portal_id, 1], function (error, data) {
             if (error || Object.keys(data).length === 0) {
@@ -61,6 +77,11 @@ export class PortalsController {
         });
     }
 
+    /**
+     * PAGE [/portals/statistic]
+     * @param req
+     * @param res
+     */
     interfaceStatistic(req, res) {
         db.query('SELECT p.name, p.id as "portal_id", o.all_links, o.send_links, o.fail_links, o.id as "order_id" FROM `portal` as p JOIN `order` as o ON p.id = o.portal',
             function (error, data){
@@ -102,8 +123,13 @@ export class PortalsController {
 
     /*#################################*/
     /*             HANDLES             */
-
     /*#################################*/
+
+    /**
+     * HANDLER PAGE [/portals/index]
+     * @param req
+     * @param res
+     */
     handlerIndex(req, res) {
         let status = req.body.status === 'in_active' ? 0 : 1;
         db.query("UPDATE `portal` SET `is_active` = ? WHERE `id` = ?", [status, req.body.portal_id],
@@ -117,6 +143,12 @@ export class PortalsController {
             });
     }
 
+    /**
+     * HANDLER PAGE [/portals/add]
+     * @param req
+     * @param res
+     * @returns {boolean}
+     */
     handlerAdd(req, res) {
         if (!req.body.alias || !req.body.name) {
             res.json({
@@ -144,6 +176,12 @@ export class PortalsController {
             });
     }
 
+    /**
+     * HANDLER PAGE [/portals/edit]
+     * @param req
+     * @param res
+     * @returns {boolean}
+     */
     handlerEdit(req, res) {
         if (!req.body.name) {
             res.json({
