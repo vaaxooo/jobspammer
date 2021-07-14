@@ -92,7 +92,6 @@ export class TaskController {
             proxies['in_active'] = data.filter(proxy => proxy.is_active === 0);
         });
 
-
         res.render('statistics', {
             title: 'Statistic',
             user: req.session.User,
@@ -106,7 +105,6 @@ export class TaskController {
 
     /*#################################*/
     /*             HANDLES             */
-
     /*#################################*/
     handlerAdd(req, res) {
         if (!req.files || !req.body.portal || !req.body.target_link || !req.body.email || !req.body.password) {
