@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d29da87f-4228-4c02-ac96-0b8797a46f6d" name="Default Changelist" comment="Added auth and pagination, fixed bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.bundle.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.bundle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/header.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/header.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/TaskController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TaskController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/statistics.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/statistics.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +66,7 @@
       <workItem from="1626069709243" duration="6805000" />
       <workItem from="1626078772372" duration="3835000" />
       <workItem from="1626162194043" duration="22518000" />
-      <workItem from="1626242251140" duration="24577000" />
+      <workItem from="1626242251140" duration="25608000" />
     </task>
     <task id="LOCAL-00001" summary="3-e commit">
       <created>1625742739424</created>

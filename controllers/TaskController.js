@@ -65,6 +65,7 @@ export class TaskController {
             tasks['created'] = data.filter(task => task.status_order === 0);
             tasks['done'] = data.filter(task => task.status_order === 1);
             tasks['fail'] = data.filter(task => task.status_order === 2);
+            tasks['active'] = data.filter(task => task.status === 1);
             tasks['total_links'] = 0;
             tasks['send_links'] = 0;
             tasks['fail_links'] = 0;
