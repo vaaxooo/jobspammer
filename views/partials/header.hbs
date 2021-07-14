@@ -26,8 +26,7 @@
             <!--begin::Logo-->
             <div class="d-flex d-lg-none align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
                 <a href="/">
-                    <img alt="Logo" src="./Craft Theme _ Keenthemes_files/logo-default.svg"
-                         class="max-h-50px">
+                    JSpammer
                 </a>
             </div>
             <!--end::Logo-->
@@ -47,15 +46,9 @@
 
                 {{#if user}}
                     <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-                        <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                        <div class="cursor-pointer symbol symbol-30px symbol-md flex-row" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom" style="display: flex;">
                             <b class="user-title">Hello, {{ user.firstname }}</b>
-                            <span class="svg-icon svg-icon-3x svg-icon-primary me-5">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                    <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"></circle>
-                                    <rect fill="#000000" x="11" y="10" width="2" height="7" rx="1"></rect>
-                                    <rect fill="#000000" x="11" y="7" width="2" height="2" rx="1"></rect>
-                                </svg>
-                            </span>
+                            <div class="symbol-label fs-2 fw-bold bg-primary text-inverse-primary" id="avatar-name"></div>
                         </div>
                         <div class="menu menu-sub menu-sub-dropdown menu-column w-300px" data-kt-menu="true" data-popper-placement="bottom-end" style="z-index: 105; position: fixed; inset: 0px auto auto 0px; margin: 0px; transform: translate(1011px, 90px);">
                             <div class="row row-cols-2 g-0">
@@ -92,3 +85,8 @@
         <div class="border-gray-300 border-bottom border-bottom-dashed"></div>
     </div>
 </div>
+
+<script>
+    let name = '{{ user.firstname }}';
+    $("#avatar-name").html(name.charAt(0));
+</script>
