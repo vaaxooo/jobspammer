@@ -52,6 +52,7 @@ export class ApiController {
     handlerOrderSuccess(req, res) {
         db.query("UPDATE `order` SET `status_order` = ?, `status` = ?, `all_links` = ?, `send_links` = ?, `fail_links` = ?, `message` = ? WHERE `id` = ?",
             [1, 0, req.body.all_links, req.body.send_links, req.body.fail_links, "Task completed successfully", req.params.task_id]);
+
         res.send({
             status: true,
             message: "Data refreshed!"
