@@ -49,8 +49,8 @@ export class SettingsController {
             return false;
         }
 
-        db.query("UPDATE `settings` SET `alias` = ?, `description` = ? WHERE `id` = ?",
-            [req.body.alias, req.body.description, req.body.settings_id],
+        db.query("UPDATE `settings` SET `alias` = ?, `value` = ?, `description` = ? WHERE `id` = ?",
+            [req.body.alias, req.body.value, req.body.description, req.body.settings_id],
             function (error, data) {
                 if (error || Object.keys(data).length === 0) {
                     res.send({
@@ -76,8 +76,8 @@ export class SettingsController {
             return false;
         }
 
-        db.query("INSERT INTO `settings` (`alias`, `is_active`, `description`) VALUES " +
-            "(?, ?, ?)", [req.body.alias, 1, req.body.description],
+        db.query("INSERT INTO `settings` (`alias`, `value`, `is_active`, `description`) VALUES " +
+            "(?, ?, ?, ?)", [req.body.alias, req.body.value, 1, req.body.description],
             function (error, data) {
                 if (error) {
                     res.send({

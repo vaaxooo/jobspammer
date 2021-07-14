@@ -22,25 +22,85 @@
             {{#if user }}
             <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
                  id="#kt_docs_aside_menu" data-kt-menu="true">
-                <div class="menu-item"></div>
-                <div class="menu-item">
-                    <a class="menu-link py-2"
-                       href="/">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link py-2">
                         <span class="menu-title">Tasks</span>
-                    </a>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion" kt-hidden-height="64" style="display: none; overflow: hidden;">
+                        <div class="menu-item">
+                            <a class="menu-link py-2"
+                               href="/">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Tasks list</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link py-2"
+                               href="/create_task">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Add task</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <a class="menu-link py-2"
-                       href="/portal/index">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link py-2">
                         <span class="menu-title">Portals</span>
-                    </a>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion" kt-hidden-height="64" style="display: none; overflow: hidden;">
+                        <div class="menu-item">
+                            <a class="menu-link py-2"
+                               href="/portal/index">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Portals list</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link py-2"
+                               href="/portal/statistic">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Statistic</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <a class="menu-link py-2"
-                       href="/proxy/index">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link py-2">
                         <span class="menu-title">Proxies</span>
-                    </a>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion" kt-hidden-height="64" style="display: none; overflow: hidden;">
+                        <div class="menu-item">
+                            <a class="menu-link py-2"
+                               href="/proxy/index">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Proxies list</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link py-2"
+                               href="/proxy/add">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Add proxy</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="menu-item">
                     <a class="menu-link py-2"
                        href="/settings/index">
@@ -51,12 +111,6 @@
                     <a class="menu-link py-2"
                        href="/statistics">
                         <span class="menu-title">Statistic</span>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-link py-2"
-                       href="/account/logout">
-                        <span class="menu-title">Logout</span>
                     </a>
                 </div>
             </div>

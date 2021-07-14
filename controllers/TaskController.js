@@ -7,38 +7,53 @@ export class TaskController {
 
     /*#################################*/
     /*             INTERFACE           */
+
     /*#################################*/
     interfaceIndex(req, res) {
-        let page = req.query.page;
-        let limit = 5;
-        let offset = page > 1 ? ((limit * req.query.page || 1) - limit) : 0;
-        db.query('SELECT o.*, o.id as "task_id", p.name as "portal_name", p.id FROM `order` as o JOIN `portal` as p ON p.id = o.portal ORDER BY o.id LIMIT ?, ?',
-            [offset, limit],
-            (error, data) => {
-                db.query("SELECT COUNT(*) as 'count' FROM `order`", function (error, corder){
-                    if (!error) {
-                        res.render('index', {
-                            title: 'Tasks list',
-                            user: req.session.User,
-                            tasks: data,
-                            total_tasks: corder[0].count,
-                            total_current_tasks: data.length
-                        });
-                    }
+        db.query("SELECT * FROM `settings` WHERE `alias` = ? LIMIT ?", ['pagination_limit', 1], function (error_settings, settings) {
+            if(error_settings || !settings) {
+                res.render('error', {
+                    title: "Not found alias `pagination_limit`",
+                    description: "Please add to the alias `pagination_limit` `settings` section"
                 });
-            });
+                return;
+            }
+
+            let sort = req.query.sort ? req.query.sort : "o.id";
+            let sort_type = req.query.sort_type ? req.query.sort_type : "ASC";
+            let page = req.query.page;
+            let limit = +settings[0].value;
+            let offset = page > 1 ? ((limit * req.query.page || 1) - limit) : 0;
+            db.query('SELECT o.*, o.id as "task_id", p.name as "portal_name", p.id FROM `order` as o JOIN `portal` as p ON p.id = o.portal ORDER BY ' + sort + ' ' + sort_type + ' LIMIT ?, ?',
+                [offset, limit],
+                (error, data) => {
+                    db.query("SELECT COUNT(*) as 'count' FROM `order`", function (error, corder) {
+                        if (!error) {
+                            res.render('index', {
+                                title: 'Tasks list',
+                                user: req.session.User,
+                                tasks: data,
+                                total_tasks: corder[0].count,
+                                total_current_tasks: data.length,
+                                limit
+                            });
+                        }
+                    });
+                });
+        });
     }
 
     interfaceAdd(req, res) {
         db.query("SELECT `id`, `alias` FROM `portal` WHERE `is_active` = ?", [1],
-            (error, data) => {
-                if (!error) {
+            (error_portals, data_portals) => {
+                db.query("SELECT * FROM `proxy` WHERE `is_active`", [1], function (error_proxies, data_proxies) {
                     res.render('create_task', {
                         title: 'Create task',
                         user: req.session.User,
-                        portals: data
+                        portals: data_portals,
+                        proxies: data_proxies
                     })
-                }
+                });
             });
     }
 
@@ -77,7 +92,6 @@ export class TaskController {
         });
 
 
-
         res.render('statistics', {
             title: 'Statistic',
             user: req.session.User,
@@ -91,9 +105,10 @@ export class TaskController {
 
     /*#################################*/
     /*             HANDLES             */
+
     /*#################################*/
     handlerAdd(req, res) {
-        if (!req.files || !req.body.portal|| !req.body.target_link || !req.body.email || !req.body.password) {
+        if (!req.files || !req.body.portal || !req.body.target_link || !req.body.email || !req.body.password) {
             res.send({
                 status: false,
                 message: 'Please fill in all required fields!'
@@ -103,7 +118,7 @@ export class TaskController {
 
         let file = req.files.file;
 
-        if(file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && file.mimetype !== "application/msword"
+        if (file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && file.mimetype !== "application/msword"
             && file.mimetype !== "text/plain" && file.mimetype !== "application/octet-stream" && file.mimetype !== "application/pdf") {
             res.send({
                 status: false,

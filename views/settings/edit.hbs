@@ -6,11 +6,23 @@
                     <input type="hidden" name="settings_id"
                            id="settings_id" value="{{ settings.id }}" required/>
 
-                    <div class="mb-5">
-                        <label for="exampleFormControlInput1" class="required form-label">Input alias</label>
-                        <input type="text" class="form-control form-control-solid" name="alias"
-                               id="alias"
-                               placeholder="Alias" value="{{ settings.alias }}" required/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-5">
+                                <label for="exampleFormControlInput1" class="required form-label">Input alias</label>
+                                <input type="text" class="form-control form-control-solid" name="alias"
+                                       id="alias"
+                                       placeholder="Alias" value="{{ settings.alias }}" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-5">
+                                <label for="exampleFormControlInput1" class="form-label">Input value</label>
+                                <input type="text" class="form-control form-control-solid" name="value"
+                                       id="value"
+                                       placeholder="Value" value="{{ settings.value }}" />
+                            </div>
+                        </div>
                     </div>
 
 

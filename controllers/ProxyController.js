@@ -4,27 +4,37 @@ export class ProxyController {
 
     /*#################################*/
     /*             INTERFACE           */
-
     /*#################################*/
     interfaceIndex(req, res) {
-        let page = req.query.page;
-        let limit = 5;
-        let offset = page > 1 ? ((limit * req.query.page || 1) - limit) : 0;
-        db.query("SELECT * FROM `proxy` ORDER BY `proxy_id` LIMIT ?, ?",
-            [offset, limit],
-            (error, data) => {
-                db.query("SELECT COUNT(*) as 'count' FROM `proxy`", function (error, cproxy) {
-                    if (!error) {
-                        res.render('proxy/index', {
-                            title: 'Proxy list',
-                            user: req.session.User,
-                            proxy: data,
-                            total_proxies: cproxy[0].count,
-                            total_current_proxies: data.length
-                        })
-                    }
+        db.query("SELECT * FROM `settings` WHERE `alias` = ? LIMIT ?", ['pagination_limit', 1], function (error_settings, settings) {
+            if (error_settings || !settings) {
+                res.render('error', {
+                    title: "Not found alias `pagination_limit`",
+                    description: "Please add to the alias `pagination_limit` `settings` section"
                 });
-            });
+                return;
+            }
+
+            let page = req.query.page;
+            let limit = +settings[0].value;
+            let offset = page > 1 ? ((limit * req.query.page || 1) - limit) : 0;
+            db.query("SELECT * FROM `proxy` ORDER BY `fail_request_proxy` ASC LIMIT ?, ?",
+                [offset, limit],
+                (error, data) => {
+                    db.query("SELECT COUNT(*) as 'count' FROM `proxy`", function (error, cproxy) {
+                        if (!error) {
+                            res.render('proxy/index', {
+                                title: 'Proxy list',
+                                user: req.session.User,
+                                proxy: data,
+                                total_proxies: cproxy[0].count,
+                                total_current_proxies: data.length,
+                                limit
+                            })
+                        }
+                    });
+                });
+        });
     }
 
     interfaceAdd(req, res) {
@@ -76,7 +86,7 @@ export class ProxyController {
     }
 
     handlerAdd(req, res) {
-        if (!req.body.protocol_proxy || !req.body.host_proxy || !req.body.port_proxy || !req.body.email || !req.body.username_proxy || !req.body.password_proxy) {
+        if (!req.body.protocol_proxy || !req.body.host_proxy || !req.body.port_proxy || !req.body.username_proxy || !req.body.password_proxy) {
             res.send({
                 status: false,
                 message: 'Please fill in all required fields!'

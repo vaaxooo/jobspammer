@@ -1,0 +1,37 @@
+<div class="docs-content d-flex flex-column flex-column-fluid" id="kt_docs_content">
+    <!--begin::Container-->
+    <div class="container" id="kt_docs_content_container">
+
+        <div class="card mb-2 mt-5">
+            <div class="card-body fs-6 py-15 px-10 py-lg-15 px-lg-15">
+                <table class="table table-row-dashed table-row-gray-300 gy-7">
+                    <thead>
+                    <tr class="fw-bolder fs-6 text-gray-800">
+                        <!--<th>Proxy ID</th>-->
+                        <th>Portal</th>
+                        <th>Total tasks</th>
+                        <th>Total links</th>
+                        <th>Total send links</th>
+                        <th>Total fail links</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each portals}}
+                            <tr>
+                                <td>{{ name }}</td>
+                                <td>{{ total_tasks }}</td>
+                                <td>{{ all_links }}</td>
+                                <td>{{ send_links }}</td>
+                                <td>{{ fail_links }}</td>
+                            </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-2" id="pagination"></div>
+
+    </div>
+</div>

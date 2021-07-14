@@ -33,6 +33,7 @@ let Portals = new PortalsController();
 router.get('/portal/index', Auth, Portals.interfaceIndex);
 router.get('/portal/add', Auth, Portals.interfaceAdd);
 router.get('/portal/edit/:portal_id', Auth, Portals.interfaceEdit);
+router.get('/portal/statistic', Auth, Portals.interfaceStatistic);
 router.post('/portal/index', Auth, Portals.handlerIndex);
 router.post('/portal/add', Auth, Portals.handlerAdd);
 router.post('/portal/edit', Auth, Portals.handlerEdit);

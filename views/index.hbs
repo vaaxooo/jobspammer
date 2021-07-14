@@ -1,8 +1,29 @@
 <div class="docs-content d-flex flex-column flex-column-fluid" id="kt_docs_content">
     <div class="container" id="kt_docs_content_container">
 
-        <div class="d-flex align-items-center">
-            <a class="btn btn-primary fw-bolder" href="/create_task">Create task</a>
+        <div class="d-flex align-items-center row">
+                <div class="col-md-4">
+                    <a class="btn btn-primary fw-bolder" href="/create_task">Create task</a>
+                </div>
+
+                <div class="col-md-4">
+                    <select class="form-select" aria-label="Select sort" id="sort-tasks">
+                        <option value="">Sort by:</option>
+                        <option value="status">Is work</option>
+                        <option value="status_order">Status</option>
+                        <option value="all_links">All links</option>
+                        <option value="send_links">Send links</option>
+                        <option value="fail_links">Fail links</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <select class="form-select" aria-label="Select sort type" id="sort-tasks-type">
+                        <option value="">Type:</option>
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
         </div>
 
         <div class="card mb-2 mt-5">
@@ -11,17 +32,17 @@
                     <table class="table table-striped gy-7 gs-7">
                         <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th class="min-w-200px">Portal</th>
+                            <th class="min-w-100px">Portal</th>
                             <th class="min-w-400px">Traget link</th>
-                            <th class="min-w-200px">Is work</th>
-                            <th class="min-w-200px">Status</th>
+                            <th class="min-w-100px">Is work</th>
+                            <th class="min-w-100px">Status</th>
                             <th class="min-w-100px">All links</th>
-                            <th class="min-w-200px">Send links</th>
-                            <th class="min-w-200px">Fail links</th>
+                            <th class="min-w-100px">Send links</th>
+                            <th class="min-w-100px">Fail links</th>
                             <th class="min-w-200px">Message</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tasks-content-list">
                         {{#each tasks }}
                             <tr id="task-list">
                                 <td>{{ portal_name }}</td>
@@ -54,13 +75,9 @@
                                 <td>{{ send_links }}</td>
                                 <td>{{ fail_links }}</td>
                                 <td>{{ message }}</td>
-                                {{#if status }}
-                                    <td></td>
-                                {{else}}
-                                    <td>
-                                         <button type="button" class="btn btn-sm btn-active-primary" onclick="$.restartTask({{ task_id }})">Restart</button>
-                                    </td>
-                                {{/if}}
+                                <td>
+                                     <button type="button" class="btn btn-sm btn-bg-light btn-color-gray-800 {{#if status }} disabled {{else}} '' {{/if}}" onclick="$.restartTask({{ task_id }})">Restart</button>
+                                </td>
                             </tr>
                         {{/each}}
 
@@ -76,6 +93,12 @@
 
 <script>
     $(document).ready(function () {
-        $.createPagination({{ total_tasks }}, {{ total_current_tasks }});
+        $.createPagination({{ limit }}, {{ total_tasks }}, {{ total_current_tasks }});
+
+        let sort = $.getUrlParam('sort') !== 1 ? $.getUrlParam('sort') : ""
+        $("#sort-tasks").val(sort);
+
+        let sort_type = $.getUrlParam('sort_type') !== 1 ? $.getUrlParam('sort_type') : "asc"
+        $("#sort-tasks-type").val(sort_type);
     });
 </script>

@@ -50,7 +50,6 @@ export class ApiController {
     }
 
     handlerOrderSuccess(req, res) {
-        console.log(req.body);
         db.query("UPDATE `order` SET `status_order` = ?, `status` = ?, `all_links` = ?, `send_links` = ?, `fail_links` = ?, `message` = ? WHERE `id` = ?",
             [1, 0, req.body.all_links, req.body.send_links, req.body.fail_links, "Task completed successfully", req.params.task_id]);
         res.send({
@@ -59,7 +58,7 @@ export class ApiController {
         })
     }
 
-    handlerProxyUpdate(req, res) {
+    handlerProxyUpdate(req, res, next) {
         if (req.query.fail === "true") {
             db.query("UPDATE `proxy` SET `fail_request_proxy` = `fail_request_proxy` + 1 WHERE `proxy_id` = ?",
                 [req.query.proxy_id], function (error, data) {
@@ -85,11 +84,25 @@ export class ApiController {
                 }
 
                 let proxy = data[0];
-                res.send({
-                    status: true,
-                    proxy: "http://" + proxy.username_proxy + ":" + proxy.password_proxy + "@" + proxy.host_proxy + ":" + proxy.port_proxy,
-                    proxy_id: proxy.proxy_id
-                });
+                if(proxy) {
+                    res.send({
+                        status: true,
+                        proxy: "http://" + proxy.username_proxy + ":" + proxy.password_proxy + "@" + proxy.host_proxy + ":" + proxy.port_proxy,
+                        proxy_id: proxy.proxy_id
+                    });
+                    return;
+                }
+
+                db.query("SELECT * FROM `proxy` WHERE `proxy_id` = ? LIMIT ?",
+                    [req.query.proxy_id, 1], function (error_proxy, proxy) {
+                        res.send({
+                            status: true,
+                            proxy: "http://" + proxy[0].username_proxy + ":" + proxy[0].password_proxy + "@" + proxy[0].host_proxy + ":" + proxy[0].port_proxy,
+                            proxy_id: proxy[0].proxy_id
+                        });
+                    });
+
+
             });
     }
 

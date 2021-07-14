@@ -40,6 +40,14 @@ Handlebars.registerHelper('ifeq', function(a, b, options) {
     else return options.inverse(this)
 });
 
+Handlebars.registerHelper('eachInMap', function ( map, block ) {
+    var out = '';
+    Object.keys( map ).map(function( prop ) {
+        out += block.fn( {key: prop, value: map[ prop ]} );
+    });
+    return out;
+} );
+
 hbs.reg
 
 app.engine(
