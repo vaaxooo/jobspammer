@@ -93,7 +93,7 @@ export class PortalsController {
                     if(portals.get(value.portal_id) === undefined) {
                         portals.set(value.portal_id, {
                             name: value.name,
-                            total_tasks: 0,
+                            total_tasks: 1,
                             all_links: value.all_links,
                             send_links: value.send_links,
                             fail_links: value.fail_links
