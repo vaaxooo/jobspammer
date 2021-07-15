@@ -1,0 +1,32 @@
+stages:
+  - deploy
+
+deploy_development:
+  stage: deploy
+  script:
+    - echo "Deploy to development server"
+  cache:
+    key: vendors
+    paths:
+      - vendor/
+      - node_modules/
+  environment:
+    name: development
+  when: manual
+  only:
+    - master
+
+deploy_production:
+  stage: deploy
+  script:
+    - echo "Deploy to production server"
+  cache:
+    key: vendors
+    paths:
+      - vendor/
+      - node_modules/
+  environment:
+    name: production
+  when: manual
+  only:
+    - master
