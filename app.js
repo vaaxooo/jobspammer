@@ -10,9 +10,6 @@ import session from 'express-session';
 
 import {Auth} from './services/Auth.js';
 
-/*
-import Helpers from './config/_helpers.js';*/
-
 const app = express();
 dotenv.config();
 

@@ -1,18 +1,16 @@
 import db from '../config/db.js';
 
+import Settings from '../models/Settings.js';
+
 export class SettingsController {
 
-    interfaceIndex(req, res) {
-        db.query("SELECT * FROM `settings`",
-            (error, data) => {
-                if (!error) {
-                    res.render('settings/index', {
-                        title: 'Settings',
-                        user: req.session.User,
-                        settings: data
-                    });
-                }
-            });
+    async interfaceIndex(req, res) {
+        const SettingsData = await Settings.findAll();
+        res.render('settings/index', {
+            title: 'Settings',
+            user: req.session.User,
+            settings: SettingsData.map(data => data.toJSON())
+        });
     }
 
     interfaceAdd(req, res) {
@@ -22,25 +20,30 @@ export class SettingsController {
         });
     }
 
-    interfaceEdit(req, res) {
-        db.query("SELECT * FROM `settings` WHERE `id` = ? LIMIT ?", [req.params.settings_id, 1], function (error, data) {
-            if (error || Object.keys(data).length === 0) {
-                res.send({
-                    status: false,
-                    message: "Alias ID not found!"
-                });
-                return;
+    async interfaceEdit(req, res) {
+        const SettingsData = await Settings.findOne({
+            where: {
+                id: req.params.settings_id
             }
-
-            res.render('settings/edit', {
-                title: 'Edit alias ' + data[0].alias,
-                user: req.session.User,
-                settings: data[0]
-            });
         });
+
+        if (SettingsData === null) {
+            res.send({
+                status: false,
+                message: "Alias ID not found!"
+            });
+            return;
+        }
+
+        res.render('settings/edit', {
+            title: 'Edit alias ' + SettingsData.alias,
+            user: req.session.User,
+            settings: SettingsData.dataValues
+        });
+
     }
 
-    handlerEdit(req, res) {
+    async handlerEdit(req, res) {
         if(!req.body.alias || !req.body.description) {
             res.json({
                 status: false,
@@ -49,25 +52,32 @@ export class SettingsController {
             return false;
         }
 
-        db.query("UPDATE `settings` SET `alias` = ?, `value` = ?, `description` = ? WHERE `id` = ?",
-            [req.body.alias, req.body.value, req.body.description, req.body.settings_id],
-            function (error, data) {
-                if (error || Object.keys(data).length === 0) {
-                    res.send({
-                        status: false,
-                        message: "Settings ID not found!"
-                    });
-                    return;
-                }
+        const SettingsData = await Settings.update({
+            alias: req.body.alias,
+            value: req.body.value,
+            description: req.body.description
+        },{
+            where: {
+                id: req.body.settings_id
+            }
+        });
 
-                res.send({
-                    status: true,
-                    message: "Data refreshed!"
-                })
+        if (SettingsData === null) {
+            res.send({
+                status: false,
+                message: "Settings ID not found!"
             });
+            return;
+        }
+
+        res.send({
+            status: true,
+            message: "Data refreshed!"
+        });
+
     }
 
-    handlerAdd(req, res) {
+    async handlerAdd(req, res) {
         if(!req.body.alias || !req.body.description) {
             res.json({
                 status: false,
@@ -76,35 +86,42 @@ export class SettingsController {
             return false;
         }
 
-        db.query("INSERT INTO `settings` (`alias`, `value`, `is_active`, `description`) VALUES " +
-            "(?, ?, ?, ?)", [req.body.alias, req.body.value, 1, req.body.description],
-            function (error, data) {
-                if (error) {
-                    res.send({
-                        status: false,
-                        message: "Oops. Data not saved!"
-                    });
-                    return;
-                }
-
-                res.send({
-                    status: true,
-                    message: "Data saved!"
-                });
+        const Response = await Settings.create({
+            alias: req.body.alias,
+            value: req.body.value,
+            is_active: 1,
+            description: req.body.description
+        }).catch(error => {
+            console.error(error)
+            res.send({
+                status: false,
+                message: "Oops. Data not saved!"
             });
+            return;
+        });
+
+        res.send({
+            status: true,
+            message: "Data saved!"
+        });
+
     }
 
-    handlerIndex(req, res) {
+    async handlerIndex(req, res) {
         let status = req.body.status === 'in_active' ? 0 : 1;
-        db.query("UPDATE `settings` SET `is_active` = ? WHERE `id` = ?", [status, req.body.settings_id],
-            (error, data) => {
-                if (!error) {
-                    res.send({
-                        status: true,
-                    });
-                    return;
-                }
-            });
+
+        await Settings.update({
+            is_active: status
+        }, {
+            where: {
+                id: req.body.settings_id
+            }
+        })
+
+        res.send({
+            status: true,
+        });
+        return;
     }
 
 
