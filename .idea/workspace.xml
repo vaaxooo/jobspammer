@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d29da87f-4228-4c02-ac96-0b8797a46f6d" name="Default Changelist" comment="Added auth and pagination, fixed bugs">
-      <change beforePath="$PROJECT_DIR$/views/settings/add.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/settings/add.hbs" afterDir="false" />
+    <list default="true" id="d29da87f-4228-4c02-ac96-0b8797a46f6d" name="Default Changelist" comment="test">
+      <change afterPath="$PROJECT_DIR$/models/Admins.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Orders.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Portals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Proxies.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/AccountController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AccountController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ApiController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ApiController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/PortalsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/PortalsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ProxyController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProxyController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/SettingsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SettingsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/TaskController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TaskController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/Auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +59,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -64,7 +82,15 @@
       <workItem from="1626069709243" duration="6805000" />
       <workItem from="1626078772372" duration="3835000" />
       <workItem from="1626162194043" duration="22518000" />
-      <workItem from="1626242251140" duration="26539000" />
+      <workItem from="1626242251140" duration="26624000" />
+      <workItem from="1626328370604" duration="3929000" />
+      <workItem from="1626335498461" duration="350000" />
+      <workItem from="1626335903198" duration="4429000" />
+      <workItem from="1626360071893" duration="662000" />
+      <workItem from="1626414770946" duration="1343000" />
+      <workItem from="1626675645816" duration="12698000" />
+      <workItem from="1626692947550" duration="13884000" />
+      <workItem from="1626761227123" duration="5618000" />
     </task>
     <task id="LOCAL-00001" summary="3-e commit">
       <created>1625742739424</created>
@@ -101,7 +127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626169098835</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="test">
+      <created>1626340439003</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1626340439003</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +158,7 @@
     <MESSAGE value="4-e commit" />
     <MESSAGE value="5-e commit" />
     <MESSAGE value="Added auth and pagination, fixed bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added auth and pagination, fixed bugs" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
 </project>
